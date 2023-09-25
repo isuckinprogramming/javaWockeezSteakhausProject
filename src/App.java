@@ -7,8 +7,8 @@ import java.sql.Connection;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        // testingOutJDBC();
-        CreateDatabaseTables();
+        testingOutJDBC();
+        // CreateDatabaseTables();
     }
 
     public static void CreateDatabaseTables() {
@@ -66,31 +66,27 @@ public class App {
 
     /**
      * 
-     * Rename 
-     * 
-     * @return
-     * @throws Exception
-     * 
+     * Creates a connection object that is connected to the root folder inside the 
+     * root user account that has no password required. 
      * 
     */
     public static Connection CreateConnectionToDatabaseWithRoot() throws Exception {
 
-
-        String dbMainLocation = "jdbc://localhost:3306/";
+        String DBlocation ="jdbc:mysql://localhost:3306/" ; 
         String user = "root";
         String password = "";
 
         Connection test = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/",
-        "root",
-        "");
+            DBlocation ,
+            user ,
+            password );
 
         return test;
     }
 
 
     /**
-     *  to remove. NOT NECESSARY 
+     *  function for testing out the JDBC Driver 
      * 
      * */
     public static void testingOutJDBC() throws Exception {
@@ -111,22 +107,37 @@ public class App {
                 "");
 
         // url format : jdbc:mysql//{host}:{port}/{dbName} OR {none if root}
-
         // test.getMetaData()
 
         System.out.println("code runs properly.");
-
         Statement statementTest = test.createStatement();
 
+        String createTestDBString = "CREATE DATABASE jdbcTestDB";
         String sqlQuery = "SELECT * FROM testTable ";
-        boolean data1 = statementTest.execute("USE Lim_db");
+        String createTestTable = "CREATE TABLE IF NOT EXIST testTable ( numbers INT)";
+        String useTestDB = "USE jdbcTestDB";
+        String insertDataToTestTable = "INSERT INTO testTable VALUES (1),(2),(3),(4)";
+        String showDatabasesInsideUser = "show databases";
+
+        statementTest.execute(createTestDBString);
+        statementTest.execute(useTestDB);
+        statementTest.execute( createTestTable );
+        statementTest.execute( insertDataToTestTable );
+    
         ResultSet data = statementTest.executeQuery(sqlQuery);
 
         while (data.next()) {
             System.out.println(
                     data.getString("numbers"));
         }
-        data.close();
+
+        ResultSet nameOfAllDatabases = statementTest.executeQuery(showDatabasesInsideUser);
+        while (nameOfAllDatabases.next()) {
+            System.out.println(
+                    nameOfAllDatabases.getString("Database"));
+        }
+
+        nameOfAllDatabases.close();
     }
 
 }
