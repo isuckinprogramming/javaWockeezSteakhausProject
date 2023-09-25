@@ -6,7 +6,7 @@ import java.sql.Connection;
  * 
  *Standard interface for entity inside database.  
  * */ 
-interface DBEntity {
+public interface DBEntity {
   
   /**
    * 
