@@ -1,6 +1,8 @@
 package DatabaseTables;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import DatabaseObjectTemplates.DBEntity;
 
@@ -23,8 +25,17 @@ public class Customer implements DBEntity {
 
     @Override
     public void CreateTable(Connection connection) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CreateTable'");
+
+        try {
+
+            Statement statement  = connection.createStatement();
+            statement.execute(getStringSQLQuery());
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 
     @Override
