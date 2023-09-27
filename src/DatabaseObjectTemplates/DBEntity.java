@@ -1,6 +1,5 @@
-package DatabaseObjectTemplates;
 
-import java.sql.Connection;
+package DatabaseObjectTemplates;
 
 /**
  * 
@@ -19,17 +18,8 @@ public interface DBEntity {
   public String getStringSQLQuery();
   
   /***
-   * Statement to create table of entity.
    * 
-   * @param connection Connection object that is directly connected to project,
-   * when overriding this method, Connection param must be used to create the 
-   * table.
-   * NOTE: NO NEED TO CREATE SEPARATE CONNECTION. PASS THE REFERENCE OF THE CONNECTION.
+   * @return tableName string that represents the name of the table this class represents.
   */ 
-  public void CreateTable(Connection connection);
-
-  /**
-   * Clear initial contents of table.
-   * */ 
-  public void truncateTable();
+  public String getTableName();
 }

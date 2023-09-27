@@ -1,6 +1,7 @@
 package developmentTests;
 
 import SystemObjects.DatabaseInitialize;
+import databaseTables.Reservations;
 
 public class databaseDevelopment {
 
@@ -8,6 +9,10 @@ public class databaseDevelopment {
     
     DatabaseInitialize.createProjectDatabaseInsideServer();
     
+    // create table inside the created project database 
+    // will throw an exception if the table exist or other MySQL query problems
+    DatabaseInitialize.createTableInsideDatabase(new Reservations());
+
 
   }
   

@@ -22,6 +22,11 @@ public class DatabaseInitialize {
   private static boolean isDatabaseInitialize = false;
   private static String projectDatabaseName = "cce104_project_javawakeez_steakhauz_db";
 
+
+  private static Connection serverConnection = null;
+  private static boolean isServerConnectionCreated = false;
+
+
   public static boolean isProjectDatabaseCreatedInsideServer(Connection serverConnection) {
 
     String showAllDB = "show databases";
@@ -74,28 +79,36 @@ public class DatabaseInitialize {
    * @return Connection object that is connected to mysql server.
   */ 
   public static Connection createConnectionToServer() {
-  
-    // I am thinking of making the variables for connection in to 
-    // variables inside the class that can be modified and changed 
-    // depending on changes
 
+    if( isServerConnectionCreated ) {
+      return serverConnection;
+    }
+    /**
+     *I am thinking of making the variables for connection in to 
+    variables inside the class that can be modified and changed 
+    depending on changes 
+    */
+    
     String dbMainLocation = "jdbc:mysql://localhost:3306/";
     String user = "root";
     String password = "";
 
-    Connection test = null;
     try {
 
-      test = DriverManager.getConnection(
+      serverConnection = DriverManager.getConnection(
       dbMainLocation,
       user,
-      password );
+          password);
+      
+      isServerConnectionCreated = true;
     } catch (SQLException e) {
+      
       // TODO Auto-generated catch block
       e.printStackTrace();
+      return null;
     }
 
-    return test;
+    return serverConnection;
   }
 
   public static void createProjectDatabaseInsideServer() {
@@ -125,11 +138,38 @@ public class DatabaseInitialize {
   /***
    * Method creates the table represented by the class representing the DBEntity
    *  <br></br>
+   * The method retrieves the MySQL query for the creation of the database table
+   * through the getStringSQLQuery() method of that is specified inside the 
+   * DBEntity interface.
+   *  <br></br>
+   * 
    * @param tableEntity is a Class that implements the DBEntity interface.
   */ 
   public static void createTableInsideDatabase(DBEntity tableEntity) {
 
-    tableEntity.getStringSQLQuery();
+    try {
+
+      Connection serverCon = createConnectionToServer();
+      Statement statement = serverCon.createStatement();
+      
+      statement.execute("USE " + projectDatabaseName);
+      statement.execute(tableEntity.getStringSQLQuery());
+
+      System.out.println(
+          "The table " + tableEntity.getTableName() +
+          " is successfully created inside the " +
+          getProjectDatabaseName() + " database."
+      );
+    }
+    catch (SQLException e) {
+      // exception when there are problems in mysql queries 
+      e.printStackTrace();
+    } 
+    catch (Exception e) {
+      // back up catch block for unexpected exception
+      e.printStackTrace();
+    }
+    
   }
 
   public static void useProjectDatabase() {

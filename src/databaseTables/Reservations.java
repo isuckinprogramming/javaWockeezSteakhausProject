@@ -6,7 +6,9 @@ import java.sql.Statement;
 
 import DatabaseObjectTemplates.DBEntity;
 
-public class Reservation implements DBEntity {
+public class Reservations implements DBEntity {
+
+  private String tableName = "Reservations";
 
   @Override
   public String getStringSQLQuery() {
@@ -35,6 +37,12 @@ public class Reservation implements DBEntity {
   @Override
   public void truncateTable() {
     // NO IMPLEMENTATION YET.
+  }
+
+  @Override
+  public String getTableName() {
+    // TODO Auto-generated method stub
+    return tableName;
   }
   
   // 
