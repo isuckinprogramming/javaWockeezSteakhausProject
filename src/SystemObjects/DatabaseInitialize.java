@@ -6,26 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import DatabaseObjectTemplates.DBEntity;
+
 /**
- *                                                
- * 
+ *
  * This class will operate with static context because there 
  * is no need to initialize an object of this class more than 
  * once.
- * 
- * 
  * 
  * @author Borgs
  * */ 
 public class DatabaseInitialize {
 
-  private static String useProjDB = "CREATE DATABASE cce104_project_javawakeez_steakhauz_db";
+  private static String createProjDB = "CREATE DATABASE cce104_project_javawakeez_steakhauz_db";
   private static boolean isDatabaseInitialize = false;
   private static String projectDatabaseName = "cce104_project_javawakeez_steakhauz_db";
 
   public static boolean isProjectDatabaseCreatedInsideServer(Connection serverConnection) {
 
-    boolean projectCreatedAlready = false;
     String showAllDB = "show databases";
 
     try {
@@ -36,22 +34,25 @@ public class DatabaseInitialize {
 
       while (allDB.next()) {
 
-        String currentDbName = allDB.getString("Databases");
+        String currentDbName = allDB.getString("Database");
 
-        if ( currentDbName.equals( getProjectDatabaseName() ) ) {
+        if (currentDbName.equals(getProjectDatabaseName())) {
 
-          projectCreatedAlready = true;
-          break;
+          return true;
         }
-      }
 
+      }
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    }
-
-    return projectCreatedAlready;
+    } catch (Exception e) {
+      // back up incase something happens 
+      e.printStackTrace();
+    } 
+   
+    return false;
   }
+
 
   public static String getProjectDatabaseName() {
     return projectDatabaseName;
@@ -74,7 +75,11 @@ public class DatabaseInitialize {
   */ 
   public static Connection createConnectionToServer() {
   
-    String dbMainLocation = "jdbc://localhost:3306/";
+    // I am thinking of making the variables for connection in to 
+    // variables inside the class that can be modified and changed 
+    // depending on changes
+
+    String dbMainLocation = "jdbc:mysql://localhost:3306/";
     String user = "root";
     String password = "";
 
@@ -82,9 +87,9 @@ public class DatabaseInitialize {
     try {
 
       test = DriverManager.getConnection(
-      "jdbc:mysql://localhost:3306/",
-      "root",
-      "");
+      dbMainLocation,
+      user,
+      password );
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -94,14 +99,19 @@ public class DatabaseInitialize {
   }
 
   public static void createProjectDatabaseInsideServer() {
-    
+
     try {
 
       Connection serverCon = createConnectionToServer();
       Statement statement = serverCon.createStatement();
 
-      if( isProjectDatabaseCreatedInsideServer(serverCon) ){
-        // TODO code if database does not exist inside server 
+      if (isProjectDatabaseCreatedInsideServer(serverCon)) {
+        // TODO code if database does not exist inside server
+        System.out.println("Project database already created inside server.");
+      } else {
+
+        statement.execute(createProjDB);
+        System.out.println("Project database succesfully created inside Server.");
       }
 
     } catch (SQLException e) {
@@ -109,11 +119,17 @@ public class DatabaseInitialize {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-  
+
   }
   
-  public static void createTableInsideDatabase(String tableCreationQuery) {
+  /***
+   * Method creates the table represented by the class representing the DBEntity
+   *  <br></br>
+   * @param tableEntity is a Class that implements the DBEntity interface.
+  */ 
+  public static void createTableInsideDatabase(DBEntity tableEntity) {
 
+    tableEntity.getStringSQLQuery();
   }
 
   public static void useProjectDatabase() {
