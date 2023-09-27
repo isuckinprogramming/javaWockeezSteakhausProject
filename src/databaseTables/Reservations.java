@@ -1,4 +1,4 @@
-package databaseTables;
+package DatabaseTables;
 
 import DatabaseObjectTemplates.DBEntity;
 

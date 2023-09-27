@@ -21,15 +21,8 @@ public class Orders implements DBEntity {
     }
 
     @Override
-    public void CreateTable(Connection connection) {
+    public String getTableName() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CreateTable'");
+        throw new UnsupportedOperationException("Unimplemented method 'getTableName'");
     }
-
-    @Override
-    public void truncateTable() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'truncateTable'");
-    }
-    
 }

@@ -1,8 +1,8 @@
-<<<<<<<< HEAD:src/developmentCodeTesterClasses/App.java
-package developmentCodeTesterClasses;
-========
+// <<<<<<<< HEAD:src/developmentCodeTesterClasses/App.java
+// package developmentCodeTesterClasses;
+// ========
 package developmentTests;
->>>>>>>> Lim/databaseInitializationFeature:src/developmentTests/DatabaseConnectionReference.java
+// >>>>>>>> Lim/databaseInitializationFeature:src/developmentTests/DatabaseConnectionReference.java
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;

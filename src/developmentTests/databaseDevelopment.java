@@ -1,7 +1,7 @@
 package developmentTests;
 
 import SystemObjects.DatabaseInitialize;
-import databaseTables.Reservations;
+import DatabaseTables.Reservations;
 
 public class databaseDevelopment {
 
@@ -16,7 +16,7 @@ public class databaseDevelopment {
     DatabaseInitialize.createTableInsideDatabase(new Reservations());
 
     }
-    catch (com.mysql.cj.exceptions.CJCommunicationsException exception) {
+    catch ( CJCommunicationsException exception) {
       System.out.println( "MYSQL SERVER NOT STARTED.");
       exception.printStackTrace();
     }
