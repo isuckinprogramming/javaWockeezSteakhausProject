@@ -1,9 +1,5 @@
 package databaseTables;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import DatabaseObjectTemplates.DBEntity;
 
 public class Reservations implements DBEntity {
@@ -22,28 +18,9 @@ public class Reservations implements DBEntity {
   }
 
   @Override
-  public void CreateTable(Connection connection) {
-    
-    try {
-      Statement statement = connection.createStatement();
-      
-      statement.execute( getStringSQLQuery() );
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void truncateTable() {
-    // NO IMPLEMENTATION YET.
-  }
-
-  @Override
   public String getTableName() {
     // TODO Auto-generated method stub
     return tableName;
   }
-  
   // 
 }

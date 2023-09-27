@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 import DatabaseObjectTemplates.DBEntity;
 
 /**
@@ -25,7 +27,7 @@ public class DatabaseInitialize {
 
   private static Connection serverConnection = null;
   private static boolean isServerConnectionCreated = false;
-
+  private static boolean isMySQLServerAccessible = true;
 
   public static boolean isProjectDatabaseCreatedInsideServer(Connection serverConnection) {
 
@@ -98,24 +100,58 @@ public class DatabaseInitialize {
       serverConnection = DriverManager.getConnection(
       dbMainLocation,
       user,
-          password);
+      password);
       
       isServerConnectionCreated = true;
-    } catch (SQLException e) {
+      isMySQLServerAccessible = true;
+    } catch (com.mysql.cj.jdbc.exceptions.CommunicationsException e) {
+
+      System.out.println("MySQL server is not running or Wrong Port used for Connection");
+      
+      JOptionPane.showMessageDialog(null,
+      "MySQL server is not started or wrong port used (default port 3306 is used.", 
+      "Connection to MySQL server failed", 
+          JOptionPane.ERROR_MESSAGE);
+      
+      isMySQLServerAccessible = false;
+      // optional to print stack trace or not
+      // e.printStackTrace();
+
+    }
+     catch (SQLException e) {
       
       // TODO Auto-generated catch block
       e.printStackTrace();
       return null;
-    }
+    } 
 
     return serverConnection;
   }
 
   public static void createProjectDatabaseInsideServer() {
 
+    if (!isMySQLServerAccessible) {
+      // stop fucntion if mysql server is inaccessible
+      return;
+    }
+
     try {
 
       Connection serverCon = createConnectionToServer();
+      if (serverCon == null) {
+        // end the function or throw an error, this is 
+        // because the mysql server is not started
+        // there is an error when during the process of creating 
+        // connection 
+        JOptionPane.showMessageDialog(
+          null,
+          "Could not create project database because there is no valid Connection to Server"
+          , "Project Database Creation failed",
+          JOptionPane.ERROR_MESSAGE
+        );
+        return;
+      }
+
       Statement statement = serverCon.createStatement();
 
       if (isProjectDatabaseCreatedInsideServer(serverCon)) {
@@ -146,6 +182,11 @@ public class DatabaseInitialize {
    * @param tableEntity is a Class that implements the DBEntity interface.
   */ 
   public static void createTableInsideDatabase(DBEntity tableEntity) {
+
+    if (!isMySQLServerAccessible) {
+      // stop function if mysql server is not accessible
+      return;
+    }
 
     try {
 
