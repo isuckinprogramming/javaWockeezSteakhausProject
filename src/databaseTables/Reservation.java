@@ -1,4 +1,4 @@
-package SystemObjects;
+package databaseTables;
 
 import java.sql.Connection;
 import java.sql.SQLException;

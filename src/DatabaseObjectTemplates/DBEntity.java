@@ -5,6 +5,7 @@ import java.sql.Connection;
 /**
  * 
  *Standard interface for entity inside database.  
+ *Classes that will represent a table inside the database
  * */ 
 public interface DBEntity {
   
