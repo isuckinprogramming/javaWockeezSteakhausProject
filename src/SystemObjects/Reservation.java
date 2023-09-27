@@ -33,7 +33,9 @@ public class Reservation implements DBEntity {
   }
 
   @Override
-  public void truncateTable(  ) {
-  // NO IMPLEMENTATION YET.
+  public void truncateTable() {
+    // NO IMPLEMENTATION YET.
   }
+  
+  // 
 }
