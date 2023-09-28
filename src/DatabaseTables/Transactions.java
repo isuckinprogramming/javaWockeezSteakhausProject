@@ -1,19 +1,16 @@
 package DatabaseTables;
 
-import java.lang.annotation.Retention;
 import java.sql.Connection;
 
 import DatabaseObjectTemplates.DBEntity;
 
 public class Transactions implements DBEntity {
 
-    private String tableName = "transactions";
-
     @Override
     public String getStringSQLQuery() {
         // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'getStringSQLQuery'");
-        return "CREATE TABLE "+ tableName +" (\r\n" + //
+        return "CREATE TABLE Transactions (\r\n" + //
                 "  Transac_id INT AUTO_INCREMENT Primary Key, \r\n" + //
                 "  CustomerID INT , \r\n" + //
                 "  OrderDateTime DATETIME NOT NULL, \r\n" + //
@@ -29,7 +26,8 @@ public class Transactions implements DBEntity {
 
     @Override
     public String getTableName() {
-        return tableName;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTableName'");
     }
     
 }
