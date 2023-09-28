@@ -1,7 +1,5 @@
 package DatabaseTables;
 
-import java.sql.Connection;
-
 import DatabaseObjectTemplates.DBEntity;
 
 public class Orders implements DBEntity {

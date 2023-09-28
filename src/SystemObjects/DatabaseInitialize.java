@@ -12,6 +12,13 @@ import DatabaseObjectTemplates.DBEntity;
 
 /**
  *
+ * Class holds methods for operating with the Project Database.
+ * <br></br>
+ * Creation of: <br></br> 
+ * 1.Project Databases , <br></br>
+ * 2.Database Tables inside Project Database, <br></br>
+ * 3.Support functions to Check Database And Table Status. <br></br>
+ * 
  * This class will operate with static context because there 
  * is no need to initialize an object of this class more than 
  * once.
@@ -29,6 +36,12 @@ public class DatabaseInitialize {
   private static boolean isServerConnectionCreated = false;
   private static boolean isMySQLServerAccessible = true;
 
+  /***
+   * Checks if the Project Database is created inside a server. Returns a boolean variable.
+   * <br></br>
+   * @param serverConnection Connection object that must be connected to a MySQL server.
+   * @return true if the project DB is created, false if it is not created or there were problems encountered.
+  */ 
   public static boolean isProjectDatabaseCreatedInsideServer(Connection serverConnection) {
 
     String showAllDB = "show databases";
@@ -44,7 +57,7 @@ public class DatabaseInitialize {
         String currentDbName = allDB.getString("Database");
 
         if (currentDbName.equals(getProjectDatabaseName())) {
-          
+
           isDatabaseInitialize = true;
           return true;
         }
@@ -56,20 +69,31 @@ public class DatabaseInitialize {
     } catch (Exception e) {
       // back up incase something happens 
       e.printStackTrace();
-    } 
-   
+    }
+
     return false;
   }
 
+  /**
+   * The method returns a reference of the static class variable that represents 
+   * the name of the database that is used for this project.
+   * <br></br>
+   * @return String representation of the name of the database used for the Project.
+  */ 
   public static String getProjectDatabaseName() {
     return projectDatabaseName;
   }
   
   /****
-   *To implement code to verify if table exist inside the database.
-   *  
-   * @param tableName
-   * @return
+   *Checks the project database if there is a table with the same name.
+   *  <br></br>
+   * @param tableName String representation of table name. All characters must be 
+   * in lowercase, since all tablenames in a MySQL database is in lowercase.
+   * 
+   * @return true, if the table exist inside the project database.
+   * <br></br>
+   * The method will return false, either if the table exist inside the project 
+   * database or if there are problems during the checking process.
   */ 
   public static boolean isTableCreatedInsideProjectDatabase(String tableName) {
     
@@ -111,12 +135,24 @@ public class DatabaseInitialize {
    * Connection uses port 3306 and JDBC Driver 8.1.0 to connect 
    * to MySQL server. 
    * <br></br>
-   * S
+   * Method is mainly used to create a Connection to the server 
+   * will be assigned to a Connection variable, which is static and located 
+   * inside class. 
+   * <br></br>
+   * If this method is already called before, it will return a reference to 
+   * the static Connection variable that was given a Connection to the server 
+   * during the previous method calls.
+   * <br></br>
    * @return Connection object that is connected to mysql server.
+   * This method will return null if there are problems in regards 
+   * to connecting with the MySQL server. 
+   * 
+   * <br></br>
+   * NOTE : SHOULD ADD A METHOD SIGNATURE TO INDICATE NULL RETURN VALUE.
   */ 
   public static Connection createConnectionToServer() {
 
-    if( isServerConnectionCreated ) {
+    if (isServerConnectionCreated) {
       return serverConnection;
     }
     /**
@@ -124,7 +160,7 @@ public class DatabaseInitialize {
     variables inside the class that can be modified and changed 
     depending on changes 
     */
-    
+
     String dbMainLocation = "jdbc:mysql://localhost:3306/";
     String user = "root";
     String password = "";
@@ -132,36 +168,55 @@ public class DatabaseInitialize {
     try {
 
       serverConnection = DriverManager.getConnection(
-      dbMainLocation,
-      user,
-      password);
-      
+          dbMainLocation,
+          user,
+          password);
+
       isServerConnectionCreated = true;
       isMySQLServerAccessible = true;
     } catch (com.mysql.cj.jdbc.exceptions.CommunicationsException e) {
 
       System.out.println("MySQL server is not running or Wrong Port used for Connection");
-      
+
       JOptionPane.showMessageDialog(null,
-      "MySQL server is not started or wrong port used (default port 3306 is used.", 
-      "Connection to MySQL server failed", 
+          "MySQL server is not started or wrong port used (default port 3306 is used.",
+          "Connection to MySQL server failed",
           JOptionPane.ERROR_MESSAGE);
-      
+
       isMySQLServerAccessible = false;
       // optional to print stack trace or not
       // e.printStackTrace();
 
-    }
-     catch (SQLException e) {
-      
+    } catch (SQLException e) {
+
       // TODO Auto-generated catch block
       e.printStackTrace();
       return null;
-    } 
+    }
 
     return serverConnection;
   }
 
+  
+  /**
+   * Creates the project database inside the server.
+   * <br></br>
+   * The method uses the uses the Connection instance 
+   * that is created from calling the method to 
+   * create a Connection object with the MySQL server.
+   * <br></br>
+   * If the MySQL server cannot be accessed and/or the 
+   * the Connection Object associated with the server 
+   * is not successfully created, then this method will 
+   * not create the Project Database.
+   * <br></br>
+   * NOTE : SUBJECT TO CHANGE.
+   * <br></br>
+   * As of development, this method does not print to the 
+   * terminal the stacktrace for exceptions, and prints 
+   * only simplified and vague messages of the problem. 
+   * 
+  */
   public static void createProjectDatabaseInsideServer() {
 
     if (!isMySQLServerAccessible) {
@@ -222,7 +277,7 @@ public class DatabaseInitialize {
       return;
     }
 
-    // check if database was already created
+    // check if table is already created inside database.
     if (isTableCreatedInsideProjectDatabase(tableEntity.getTableName())) {
 
       JOptionPane.showMessageDialog(

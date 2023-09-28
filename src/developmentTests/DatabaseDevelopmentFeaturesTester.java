@@ -15,7 +15,7 @@ import DatabaseTables.Reservations;
  * that operate on the project database.
  * 
  * **/ 
-public class databaseDevelopment {
+public class DatabaseDevelopmentFeaturesTester {
 
   public static void main(String[] args) {
 

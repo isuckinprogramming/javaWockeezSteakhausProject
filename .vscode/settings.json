@@ -1,17 +1,6 @@
 {
-<<<<<<< HEAD
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\CL1-UNIT9\\Downloads\\mysql-connector-j-8.1.0\\mysql-connector-j-8.1.0\\mysql-connector-j-8.1.0.jar"
-    ]
-}
-=======
-  "java.project.sourcePaths": ["src"],
-  "java.project.outputPath": "bin",
   "java.project.referencedLibraries": [
     "lib/**/*.jar",
     "c:\\Users\\Borgs\\Documents\\programmingFiles\\Database Driver\\mysql-connector-j-8.1.0\\mysql-connector-j-8.1.0\\mysql-connector-j-8.1.0.jar"
-  ],
-  "git.ignoreLimitWarning": true
+  ]
 }
->>>>>>> Lim/databaseInitializationFeature
