@@ -44,7 +44,8 @@ public class DatabaseInitialize {
         String currentDbName = allDB.getString("Database");
 
         if (currentDbName.equals(getProjectDatabaseName())) {
-
+          
+          isDatabaseInitialize = true;
           return true;
         }
 
@@ -60,20 +61,53 @@ public class DatabaseInitialize {
     return false;
   }
 
-
   public static String getProjectDatabaseName() {
     return projectDatabaseName;
   }
   
+  /****
+   *To implement code to verify if table exist inside the database.
+   *  
+   * @param tableName
+   * @return
+  */ 
   public static boolean isTableCreatedInsideProjectDatabase(String tableName) {
     
+    if (! ( isMySQLServerAccessible && isDatabaseInitialize ) ) {
+      // base case for when the mysql server and database is unitialized
+      return false;
+    }
+
+    String showAllTables = "show tables";
+    String columnName = "Tables_in_" + getProjectDatabaseName();
+    try {
+
+      Statement statement = serverConnection.createStatement();
+      statement.execute( "use "+ projectDatabaseName );
+      ResultSet allTables = statement.executeQuery(showAllTables);
+
+      while (allTables.next()) {
+
+        String currentTableName = allTables.getString(columnName);
+
+        if ( currentTableName.equals( tableName )) {
+
+          return true;
+        }
+
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (Exception e) {
+      // back up incase something happens 
+      e.printStackTrace();
+    } 
     return false;
   }
 
 
-  /**
-   * 
-   * 
+  /** 
    * Connection uses port 3306 and JDBC Driver 8.1.0 to connect 
    * to MySQL server. 
    * <br></br>
@@ -188,12 +222,30 @@ public class DatabaseInitialize {
       return;
     }
 
+    // check if database was already created
+    if (isTableCreatedInsideProjectDatabase(tableEntity.getTableName())) {
+
+      JOptionPane.showMessageDialog(
+          null,
+            "The table " + tableEntity.getTableName()
+            + " already exist inside " + getProjectDatabaseName() + " database."
+          ,
+          "Database Table Creation",
+          JOptionPane.WARNING_MESSAGE,
+          null);
+
+      return;
+    }
+
+
+
     try {
 
       Connection serverCon = createConnectionToServer();
       Statement statement = serverCon.createStatement();
       
       statement.execute("USE " + projectDatabaseName);
+
       statement.execute(tableEntity.getStringSQLQuery());
 
       System.out.println(
@@ -215,6 +267,13 @@ public class DatabaseInitialize {
 
   public static void useProjectDatabase() {
 
+  }
+
+  public static void createAllProjectTables( DBEntity[]  allTableEntities ) {
+
+    for (DBEntity databaseEntity : allTableEntities) {
+      createTableInsideDatabase(databaseEntity);
+    }
   }
 }
 
