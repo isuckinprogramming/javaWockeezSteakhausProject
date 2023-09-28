@@ -282,9 +282,8 @@ public class DatabaseInitialize {
 
       JOptionPane.showMessageDialog(
           null,
-            "The table " + tableEntity.getTableName()
-            + " already exist inside " + getProjectDatabaseName() + " database."
-          ,
+          "The table " + tableEntity.getTableName()
+              + " already exist inside " + getProjectDatabaseName() + " database.",
           "Database Table Creation",
           JOptionPane.WARNING_MESSAGE,
           null);
@@ -292,38 +291,49 @@ public class DatabaseInitialize {
       return;
     }
 
-
-
+    // this code block will create the table inside the database
     try {
 
       Connection serverCon = createConnectionToServer();
       Statement statement = serverCon.createStatement();
-      
+
       statement.execute("USE " + projectDatabaseName);
 
       statement.execute(tableEntity.getStringSQLQuery());
 
       System.out.println(
           "The table " + tableEntity.getTableName() +
-          " is successfully created inside the " +
-          getProjectDatabaseName() + " database."
-      );
-    }
-    catch (SQLException e) {
+              " is successfully created inside the " +
+              getProjectDatabaseName() + " database.");
+    } catch (SQLException e) {
       // exception when there are problems in mysql queries 
       e.printStackTrace();
-    } 
-    catch (Exception e) {
+    } catch (Exception e) {
       // back up catch block for unexpected exception
       e.printStackTrace();
     }
-    
-  }
-
-  public static void useProjectDatabase() {
 
   }
 
+  /***
+   * Creates tables inside the project database.
+   * <br></br>
+   * Internally, the method iterates over every element inside
+   * the iterable of DBEntities and uses the fucntion for 
+   * Creating a single database table inside the database.
+   * <br></br>
+   * During the table creation process, this function does not catch 
+   * any exception or handle them, all of that is handled by the 
+   * table creation function.
+   * <br></br>
+   * NOTE: Function names are subject to change, for referencing other functions 
+   * it is better to mention their intent or purpose rather than their name.
+   * @param allTableEntities Container of all database entities to be created inside the project database
+   *<br></br>
+   *  NOTE: DBEntity is not a class but an interface, the parameter to be passed is
+   * not an instance of DBEntity but an instance of a class that implements the 
+   * DBEntity interface.
+  */ 
   public static void createAllProjectTables( DBEntity[]  allTableEntities ) {
 
     for (DBEntity databaseEntity : allTableEntities) {
