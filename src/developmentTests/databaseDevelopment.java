@@ -1,6 +1,9 @@
 package developmentTests;
 
 import SystemObjects.DatabaseInitialize;
+
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
 import DatabaseTables.Reservations;
 
 public class databaseDevelopment {
