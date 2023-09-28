@@ -4,11 +4,11 @@ import DatabaseObjectTemplates.DBEntity;
 
 public class Reservations implements DBEntity {
 
-  private String tableName = "Reservations";
+  private String tableName = "reservations";
 
   @Override
   public String getStringSQLQuery() {
-    return "CREATE TABLE Reservations (  \r\n" + //
+    return "CREATE TABLE " + tableName + " (  \r\n" + //
         "  ReservationID INT AUTO_INCREMENT Primary Key, \r\n" + //
         "  ReservationDateTime DATETIME NOT NULL, \r\n" + //
         "  PartySize INT DEFAULT 1,\r\n" + //

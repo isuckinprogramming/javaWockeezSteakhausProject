@@ -1,6 +1,5 @@
 /lib
 /bin
 bin/App.class
-/.vscode
 .vscode/settings.json
 src/DatabaseTables/Menuitems.java
