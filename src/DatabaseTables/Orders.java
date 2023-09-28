@@ -4,6 +4,12 @@ import java.sql.Connection;
 
 import DatabaseObjectTemplates.DBEntity;
 
+
+/**
+ * Table Orders will be removed and replaced by smaller tables.
+ * might remove this class.
+
+*/
 public class Orders implements DBEntity {
 
     @Override
