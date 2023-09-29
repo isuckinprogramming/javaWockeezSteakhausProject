@@ -2,6 +2,8 @@ package developmentTests;
 
 import SystemObjects.DatabaseInitialize;
 
+import java.sql.ResultSet;
+
 import com.mysql.cj.exceptions.CJCommunicationsException;
 
 
@@ -22,10 +24,41 @@ public class DatabaseDevelopmentFeaturesTester {
 
     projectCreationOfDatabaseDefaultSetup();
 
-    testingEmployeeRegistration();
+    // testingEmployeeRegistration();
+
+    testingReadFunctionsForEmployees();
   }
   
 
+  private static void testingReadFunctionsForEmployees() {
+  
+    
+    Employees employeeTable = new Employees();
+
+    try {
+      ResultSet allWorkingEmployees = employeeTable.getNamesOfWorkingEmployees();
+
+
+      while (allWorkingEmployees.next()) {
+        System.out.println(
+          "first name: " + allWorkingEmployees.getString( employeeTable.firstnameColumn ) +       
+          " last name: " +allWorkingEmployees.getString( employeeTable.lastnameColumn )
+        );
+      }
+    } catch(Exception e) {
+
+    }
+
+
+    
+  }
+
+
+  /**
+   * Testing The employee Registration for 
+   * admin and employee.
+   * 
+   * */ 
   public static void testingEmployeeRegistration() {
 
     Employees employeeTable = new Employees();
@@ -55,7 +88,7 @@ public class DatabaseDevelopmentFeaturesTester {
 
   /**
    *Function to test out removal of employee entry and turning an employee 
-   into NonWorking status.
+   into NonWorking status. 
    * 
    *  
    **/ 

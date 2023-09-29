@@ -11,20 +11,32 @@ public class Employees implements DBEntity {
 
     private String tableName = "employees";
 
+    // column names
+    // all lower characters because mysql converts them into lower characters
+    public final String
+    employeeidColumn = "employeeid",
+    firstnameColumn = "firstname",
+    lastnameColumn = "lastname",
+    positionColumn = "position",
+    contactNumberColumn= "contact_num",
+    passwordColumn = "password",
+    isEmployedCurrentlyColumn = "isemployedcurrently",
+    isAdminAuthorityLevel ="isadminauthoritylevel"; 
+
     @Override
     public String getStringSQLQuery() {
         return "CREATE TABLE " + tableName + "(\r\n" + //
-                "  EmployeeID INT AUTO_INCREMENT Primary Key,\r\n" + //
-                "  FirstName  VARCHAR(25) NOT NULL DEFAULT 'to be updated', \r\n" + //
-                "  LastName VARCHAR(25) NOT NULL DEFAULT 'to be updated', \r\n" + //
-                "  Position \r\n" + //
+                "  " + employeeidColumn + " INT AUTO_INCREMENT Primary Key,\r\n" + //
+                "  " + firstnameColumn + "  VARCHAR(25) NOT NULL DEFAULT 'to be updated', \r\n" + //
+                "  " + lastnameColumn + " VARCHAR(25) NOT NULL DEFAULT 'to be updated', \r\n" + //
+                "  " + positionColumn + " \r\n" + //
                 "    ENUM('UNVERIFIED','MANAGER','ACCOUNTANT','CLERK','SECURITY_STAFF','ROOM_KEEPER')\r\n" + //
                 "    DEFAULT 'UNVERIFIED' \r\n" + //
                 "    NOT NULL, \r\n" + //
-                "  contact_num INT DEFAULT -1 NOT NULL,\r\n" + //
-                "  password VARCHAR(25) NOT NULL DEFAULT 'to be updated',\r\n" + //
-                "  isEmployedCurrently BOOLEAN NOT NULL DEFAULT TRUE,\r\n" + //
-                "  isAdminAuthorityLevel BOOLEAN NOT NULL DEFAULT FALSE\r\n" + //
+                "  " + contactNumberColumn + " INT DEFAULT -1 NOT NULL,\r\n" + //
+                "  " + passwordColumn +" VARCHAR(25) NOT NULL DEFAULT 'to be updated',\r\n" + //
+                "  " + isEmployedCurrentlyColumn + " BOOLEAN NOT NULL DEFAULT TRUE,\r\n" + //
+                "  " + isAdminAuthorityLevel +" BOOLEAN NOT NULL DEFAULT FALSE\r\n" + //
                 ")";
     }
 
@@ -155,6 +167,87 @@ public class Employees implements DBEntity {
         return result;
     }
 
+
+    // ---------------------------------
+    // ------READ FUCNTIONS--------
+    // ---------------------------------
+
+    public ResultSet getNamesOfWorkingEmployees() {
+        String getAllNamesOfEmployees = 
+        "SELECT " + firstnameColumn +
+        ", " + lastnameColumn +
+        " FROM " + getTableName() + 
+        " WHERE " + isEmployedCurrentlyColumn + " = true";
+        
+        return DatabaseInitialize.executeMySQLQueryForResultSet(getAllNamesOfEmployees);
+    }
+
+    public ResultSet getNamesOfNonWorkingEmployees() {
+
+        return null;
+    }
+
+    public boolean isEmployeeWorking(String employeeName) {
+        return false;
+    }
+
+    public boolean isEmployeeNonWorking(String employeeName) {
+        return false;
+    }
+
+    // log in function
+    public boolean isUserRegisteredInsideEmployeeDatabase() {
+
+        return false;
+    }
+
+    // ---------------------------------
+    // ------UPDATE FUCNTIONS--------
+    // ---------------------------------
+
+    public void addAdminUser() {
+
+    }
+
+    public boolean turnEmployeeIntoWorking(int employeeid) {
+        
+        try {
+
+            DatabaseInitialize.executeMySQLQueryInProjectDatabase(
+                getIsEmployeeWorkingUpdateQuery(employeeid, true)
+            );
+
+        } catch (Exception e ) {
+            e.printStackTrace();
+            return false;
+        }
+        
+        return true;
+
+
+    }
+
+    public boolean turnEmployeeIntoNotWorking(int employeeid) {
+        
+        
+        try {
+
+            String[] notWorkingUpdateQueries = {
+                getIsAdminAuthorityUpdateQuery( employeeid ,false),
+                getIsEmployeeWorkingUpdateQuery( employeeid ,false)
+            };
+            
+            tableQueryExecutor(notWorkingUpdateQueries);
+
+        } catch (Exception e ) {
+            e.printStackTrace();
+            return false;
+        }
+        
+        return true;
+    }
+
+
     private String getEmployeeIdInsertionQuery(int generatedId) {
         return "INSERT INTO " + getTableName() + "(employeeid) VALUES ( " + generatedId + " )";
     }
@@ -198,81 +291,22 @@ public class Employees implements DBEntity {
     }
 
     // ---------------------------------
-    // ------READ FUCNTIONS--------
-    // ---------------------------------
-
-    public ResultSet getNamesOfWorkingEmployees() {
-
-        return null;
-    }
-
-    public ResultSet getNamesOfNonWorkingEmployees() {
-
-        return null;
-    }
-
-    public boolean isEmployeeWorking(String employeeName) {
-        return false;
-    }
-
-    public boolean isEmployeeNonWorking(String employeeName) {
-        return false;
-    }
-
-    // log in function
-    public boolean isUserRegisteredInsideEmployeeDatabase() {
-
-        return false;
-    }
-
-    // ---------------------------------
-    // ------UPDATE FUCNTIONS--------
-    // ---------------------------------
-
-    public void addAdminUser() {
-
-    }
-
-    public void setEmployeeAsNotWorking() {
-
-    }
-
-    public void setEmployeeAsWorking() {
-
-    }
-
-    // ---------------------------------
     // ------DELETION FUCNTIONS--------
     // ---------------------------------
 
     public void clearAllEmployeeData() {
-
+        // I don't think this function should exist.
     }
 
+    /**
+     * Creates a MySQL query for deleting a row(Employee or Employee Entry) associated with an Employeeid value.
+     * @param employeeid The id of the employee
+     * @return
+    */ 
     public String getRemoveEmployeeEntryQuery(int employeeid) {
         return "delete from " + getTableName() + " " + getWhereCondition(employeeid);
     }
     
-    public boolean turnEmployeeIntoNotWorking(int employeeid) {
-        
-        
-        try {
-
-            String[] notWorkingUpdateQueries = {
-                getIsAdminAuthorityUpdateQuery( employeeid ,false),
-                getIsEmployeeWorkingUpdateQuery( employeeid ,false)
-            };
-            
-            tableQueryExecutor(notWorkingUpdateQueries);
-
-        } catch (Exception e ) {
-            e.printStackTrace();
-            return false;
-        }
-        
-        return true;
-    }
-
     public boolean removeEmployeeFromRecords(int employeeid) {
         
         try {
