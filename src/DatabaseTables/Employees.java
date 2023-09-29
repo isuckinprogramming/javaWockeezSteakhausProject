@@ -8,26 +8,24 @@ public class Employees implements DBEntity {
 
     @Override
     public String getStringSQLQuery() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'getStringSQLQuery'");
-    
         return 
-        "CREATE TABLE "+tableName+ " (\r\n" + //
-        "  \r\n" + //
+        "CREATE TABLE " + tableName + "(\r\n" + //
         "  EmployeeID INT AUTO_INCREMENT Primary Key,\r\n" + //
         "  FirstName  VARCHAR(25) NOT NULL, \r\n" + //
         "  LastName VARCHAR(25) NOT NULL, \r\n" + //
         "  Position \r\n" + //
         "    ENUM('undecided','Waitstaff','Chef',' Manager')\r\n" + //
-        "    DEFAULT 'undecided' , \r\n" + //
-        "  contact_num INT DEFAULT -1\r\n" + //
+        "    DEFAULT 'undecided' \r\n" + //
+        "    NOT NULL, \r\n" + //
+        "  contact_num INT DEFAULT -1 NOT NULL,\r\n" + //
+        "  password VARCHAR(25) NOT NULL,\r\n" + //
+        "  isEmployedCurrently BOOLEAN NOT NULL DEFAULT TRUE,\r\n" + //
+        "  isAdminAuthorityLevel BOOLEAN NOT NULL DEFAULT FALSE\r\n" + //
         ")";
     }
 
     @Override
     public String getTableName() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'getTableName'");
         return tableName;
     }
 }
