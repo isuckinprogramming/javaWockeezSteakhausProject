@@ -7,6 +7,7 @@ import com.mysql.cj.exceptions.CJCommunicationsException;
 
 import DatabaseObjectTemplates.DBEntity;
 import DatabaseTables.Customer;
+import DatabaseTables.EmployeePosition;
 import DatabaseTables.Employees;
 import DatabaseTables.Reservations;
 
@@ -20,10 +21,51 @@ public class DatabaseDevelopmentFeaturesTester {
   public static void main(String[] args) {
 
     projectCreationOfDatabaseDefaultSetup();
+
+    testingEmployeeRegistration();
   }
   
 
+  public static void testingEmployeeRegistration() {
+
+    Employees employeeTable = new Employees();
+
+    employeeTable.registerAdminUser(
+        "fucking useless",
+        "69position",
+        "mother",
+        "fucker",
+        123456789,
+        EmployeePosition.ROOM_KEEPER);
+
+    employeeTable.registerAdminUser(
+        "fucking useless",
+        "69position",
+        "mother",
+        "fucker",
+        123456789,
+        EmployeePosition.CLERK);
+    
+        employeeTable.registerAdminUser(
+
+        "fucking useless",
+        "69position",
+        "mother",
+        "fucker",
+        123456789,
+        EmployeePosition.SECURITY_STAFF);
+
+    employeeTable.registerAdminUser(
+        "fucking useless",
+        "69position",
+        "mother",
+        "fucker",
+        123456789,
+        EmployeePosition.ROOM_KEEPER);
+  }
+    
   /***
+   * NOTE : FUNCTION MUST BE CALLED FIRST DURING PROGRAM START-UP
    * Create the project database and tables. The tables are 
    * empty by default. 
    * 

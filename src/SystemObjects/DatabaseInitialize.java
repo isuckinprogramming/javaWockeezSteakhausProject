@@ -37,6 +37,24 @@ public class DatabaseInitialize {
   private static boolean isMySQLServerAccessible = true;
 
   /***
+   * Execute MySQL query inside the database. 
+   * @param querystring
+  */ 
+  public static void executeMySQLQueryInProjectDatabase( String querystring) {
+    
+    try {
+      
+      Statement statement = serverConnection.createStatement();
+      statement.execute(querystring);
+
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+
+  /***
    * Checks if the Project Database is created inside a server. Returns a boolean variable.
    * <br></br>
    * @param serverConnection Connection object that must be connected to a MySQL server.
