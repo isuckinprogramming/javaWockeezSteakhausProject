@@ -30,40 +30,48 @@ public class DatabaseDevelopmentFeaturesTester {
 
     Employees employeeTable = new Employees();
 
-    employeeTable.registerAdminUser(
-        "fucking useless",
-        "69position",
-        "mother",
-        "fucker",
-        123456789,
-        EmployeePosition.ROOM_KEEPER);
+    employeeTable.registerAdminUser( 
+      "mother", 
+      "packer", 
+      "testing", 
+      123_456_7890, 
+        EmployeePosition.MANAGER);
 
-    employeeTable.registerAdminUser(
-        "fucking useless",
-        "69position",
-        "mother",
-        "fucker",
-        123456789,
-        EmployeePosition.CLERK);
-    
-        employeeTable.registerAdminUser(
+    employeeTable.registerEmployee( 
+      "ngieeewng", 
+      "buggghsssh", 
+      "bzzsttsssts", 
+      123_456_7890, 
+      EmployeePosition.ROOM_KEEPER);
 
-        "fucking useless",
-        "69position",
-        "mother",
-        "fucker",
-        123456789,
+    employeeTable.registerEmployee( 
+      "this employee", 
+      "should be removed", 
+      "by the next query", 
+      123_456_7890, 
         EmployeePosition.SECURITY_STAFF);
-
-    employeeTable.registerAdminUser(
-        "fucking useless",
-        "69position",
-        "mother",
-        "fucker",
-        123456789,
-        EmployeePosition.ROOM_KEEPER);
   }
     
+
+  /**
+   *Function to test out removal of employee entry and turning an employee 
+   into NonWorking status.
+   * 
+   *  
+   **/ 
+  public static void testingEntryRemovalAndTurnEmployeeIntoNotWorking() {
+
+    Employees employeeTable = new Employees();
+
+    employeeTable.turnEmployeeIntoNotWorking(51924);
+    employeeTable.turnEmployeeIntoNotWorking(41862);
+    employeeTable.turnEmployeeIntoNotWorking(51924);
+    employeeTable.turnEmployeeIntoNotWorking(58868);
+    
+    employeeTable.removeEmployeeFromRecords(39005);
+      
+  } 
+  
   /***
    * NOTE : FUNCTION MUST BE CALLED FIRST DURING PROGRAM START-UP
    * Create the project database and tables. The tables are 
