@@ -352,6 +352,7 @@ public class DatabaseInitialize {
 
       statement.execute("USE " + projectDatabaseName);
 
+      // will throw an exception when the table is already created.
       statement.execute(tableEntity.getStringSQLQuery());
 
       System.out.println(
@@ -360,7 +361,8 @@ public class DatabaseInitialize {
               getProjectDatabaseName() + " database.");
     } catch (SQLException e) {
       // exception when there are problems in mysql queries 
-      e.printStackTrace();
+      // e.printStackTrace();
+      System.out.println( "Table "+ tableEntity.getTableName() + " is already created. ");
     } catch (Exception e) {
       // back up catch block for unexpected exception
       e.printStackTrace();

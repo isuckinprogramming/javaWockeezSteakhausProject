@@ -34,7 +34,7 @@ public class DatabaseDevelopmentFeaturesTester {
     
     Employees employeeTable = new Employees();
     boolean verificationResult = 
-        employeeTable.isUserEmployeeIdAndPasswordCorrect(
+        employeeTable.verifyEmployeeIdAndPassword(
           93057,
           "bzzsttsssts"
         );

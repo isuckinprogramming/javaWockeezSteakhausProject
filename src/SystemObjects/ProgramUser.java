@@ -1,5 +1,7 @@
 package SystemObjects;
 
+import java.util.Scanner;
+
 import DatabaseTables.Employees;
 
 /***
@@ -24,20 +26,47 @@ public class ProgramUser {
    * Registration Process before going through a Log-in Verification 
    * process.
   */ 
-  public ProgramUser( Employees EmployeeTable ) {
+  public ProgramUser(Employees EmployeeTable, boolean isCLIVersion) {
 
+    // if( !EmployeeTable.checkForRegisteredAdmin() ) {
+    //   // Call for register user as admin function 
+    // }
+
+    if(isCLIVersion) {
+      logInCredentialsCLIVersion( EmployeeTable );
+    } else {
+      logInCredentialsGUIVersion();
+    }
   }
 
-
-  private void CheckForAdmin() {
-
-  }
 
   // program entry functions
-  public void logInCredentialsCLIVersion() {
-  
-  }
+  public void logInCredentialsCLIVersion(Employees EmployeeTable) {
 
+    try {
+      Scanner inputTaker = new Scanner(System.in);
+
+      System.out.println("Enter employee id: ");
+
+      String userInput = inputTaker.nextLine();
+      int convertedInput = Integer.parseInt(userInput);
+
+      System.out.println("Enter password: ");
+      String passwordinput = inputTaker.nextLine();
+
+      Object[] resultsFromVerification = EmployeeTable.verifyEmployeeIdAndPassword(
+          convertedInput, passwordinput);
+
+      isLogInSuccesful = (boolean) resultsFromVerification[0];
+
+      String message = (isLogInSuccesful) ? "LOG IN SUCCESSFUL" : "log in failed";
+      System.out.println(message);
+      inputTaker.close();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
   public void logInCredentialsGUIVersion() {
 
   }

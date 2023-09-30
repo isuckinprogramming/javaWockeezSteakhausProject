@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+import javax.xml.crypto.Data;
+
 import DatabaseObjectTemplates.DBEntity;
 import SystemObjects.DatabaseInitialize;
 
@@ -228,6 +230,27 @@ public class Employees implements DBEntity {
     // Read functions will be added later depending on the use case
     // requirements of the program.
 
+    public boolean checkForRegisteredAdmin() {
+    
+        try {
+            String mysqlQuery = 
+            "SELECT "+ employeeidColumn +" FROM " + getTableName() +
+            " WHERE " + isAdminAuthorityLevel + " = 1 AND " + isEmployedCurrentlyColumn + " = 1"; 
+
+            ResultSet setOfAdminEmployees = DatabaseInitialize.executeMySQLQueryForResultSet(mysqlQuery);
+            
+            if( setOfAdminEmployees.next() ){
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+    
+            e.printStackTrace();
+            return false; 
+        }
+    }
+
+
     /**
      * Retrieves first and last names from the Employees table.
      * 
@@ -363,9 +386,16 @@ public class Employees implements DBEntity {
      * Verifies if Employee is registered inside the Employees table 
      * by matching the Employee id and password. 
      * 
-     * @return True if the provided Employee Id and password has a match inside the employee table. 
+     * @return Object[] if the provided Employee Id and password has a match inside the employee table.
+     * <br></br> 
+     * The first of the objects is a boolean variable representing the resulf of matching the employee id 
+     * and the password inside the Employees table.
+     * <br></br> 
+     * The Second of the objects is a ResultSet variable representing the data of the employee
+     * that is found inside the table.
+     * 
     */ 
-    public boolean isUserEmployeeIdAndPasswordCorrect(int employeeid, String password) {
+    public Object[] verifyEmployeeIdAndPassword(int employeeid, String password) {
 
         String mysqlQuery = 
             "SELECT * FROM " + getTableName()
@@ -374,20 +404,23 @@ public class Employees implements DBEntity {
         try {
 
             ResultSet matchSetInEmployeesTable = DatabaseInitialize.executeMySQLQueryForResultSet(mysqlQuery);
-
-        if (matchSetInEmployeesTable.next()) {
+            if (matchSetInEmployeesTable.next()) {
+            
+            /*
+            redundant code - NOT NEEDED ANYMORE, HERE FOR REFERENCE
             System.out.println( "Employee Registered : " + employeeid + " with password " + password + " \nEmployee data: ");
             for (int index = 1; index < numberOfColumns; index++) {
                 System.out.print( matchSetInEmployeesTable.getString(index) + "  ");
             }
+             */
 
-            return true;
+            return new Object[]{ true, matchSetInEmployeesTable  } ;
         }
-        return false;    
+        return new Object[] { false, null };
             
         } catch(SQLException e) {
             e.printStackTrace();
-            return false;
+            return new Object[]{ false,null  };
         }
         
     }
@@ -407,7 +440,7 @@ public class Employees implements DBEntity {
      * 
      * @return True if the operation is successful and False if problems 
      * occurs during process.
-     * */ 
+     * */
     public boolean turnEmployeeIntoWorking(int employeeid) {
 
         try {
