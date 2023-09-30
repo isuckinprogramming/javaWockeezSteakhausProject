@@ -87,8 +87,7 @@ public class DatabaseDevelopmentFeaturesTester {
         System.out.print( employeeData.getString(index) + "  " );
       }
 
-      boolean checkResult = employeeTable.isEmployeeWorking(23423
-      );
+      boolean checkResult = employeeTable.isEmployeeWorking(23423);
 
       System.out.println( "result from check : " + checkResult);
       
