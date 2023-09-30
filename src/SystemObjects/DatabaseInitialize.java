@@ -40,19 +40,35 @@ public class DatabaseInitialize {
    * Execute MySQL query inside the database. 
    * @param querystring
   */ 
-  public static void executeMySQLQueryInProjectDatabase(String querystring) {
+  public static boolean executeMySQLQueryInProjectDatabase(String querystring) {
 
     try {
 
       Statement statement = serverConnection.createStatement();
       statement.execute(querystring);
+      return true;
 
     } catch (SQLException e) {
+
       // TODO Auto-generated catch block
       e.printStackTrace();
+      return false;
+
+    } catch (Exception e) {
+
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
     }
+
   }
 
+  /***
+   * Executes MySQL query that returns a ResultSet.
+   *  
+   * @param mysqlQuery MySQL Query in String form, and must be a Single statement only, no ; character in the end.
+   * @return ResultSet that Corresponds to the MySQL query of the Caller.
+  */ 
   public static ResultSet executeMySQLQueryForResultSet(String mysqlQuery) {
     
     try {

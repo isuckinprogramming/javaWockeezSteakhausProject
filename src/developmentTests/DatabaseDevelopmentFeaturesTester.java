@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 
 import com.mysql.cj.exceptions.CJCommunicationsException;
 
-
 import DatabaseObjectTemplates.DBEntity;
 import DatabaseTables.Customer;
 import DatabaseTables.EmployeePosition;
@@ -26,7 +25,21 @@ public class DatabaseDevelopmentFeaturesTester {
 
     // testingEmployeeRegistration();
 
-    testingReadFunctionsForEmployees();
+    // testingReadFunctionsForEmployees();
+
+    testingLogInVerification();
+  }
+  
+  private static void testingLogInVerification() {
+    
+    Employees employeeTable = new Employees();
+    boolean verificationResult = 
+        employeeTable.isUserEmployeeIdAndPasswordCorrect(
+          93057,
+          "bzzsttsssts"
+        );
+        
+    System.out.println( " Result from Log-in : " + verificationResult);
   }
   
 
@@ -45,11 +58,44 @@ public class DatabaseDevelopmentFeaturesTester {
           " last name: " +allWorkingEmployees.getString( employeeTable.lastnameColumn )
         );
       }
-    } catch(Exception e) {
-
+    } catch (Exception e)   {
+      e.printStackTrace();
     }
 
+    
+    try {
 
+      ResultSet result = employeeTable.getAllDataFromEmployees( employeeTable.lastnameColumn );
+
+      while (result.next()) {
+        System.out.println(
+          "last name: " + result.getString(1)
+        );
+      }
+
+      ResultSet employeeIdResult = employeeTable.getAllDataFromEmployees( employeeTable.employeeidColumn );
+
+      while (employeeIdResult.next()) {
+        System.out.println(
+            "employee id : " + employeeIdResult.getString(1));
+      }
+      
+      ResultSet employeeData = employeeTable.getAllDataOfEmployee(51924);
+      // must call next method to move pointer to first row 
+      employeeData.next();
+      for (int index = 1; index < employeeTable.numberOfColumns ; index++){
+        System.out.print( employeeData.getString(index) + "  " );
+      }
+
+      boolean checkResult = employeeTable.isEmployeeWorking(23423
+      );
+
+      System.out.println( "result from check : " + checkResult);
+      
+      
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
     
   }
 
@@ -64,9 +110,9 @@ public class DatabaseDevelopmentFeaturesTester {
     Employees employeeTable = new Employees();
 
     employeeTable.registerAdminUser( 
-      "mother", 
-      "packer", 
-      "testing", 
+      "problematic entry", 
+      "should not be recorded", 
+        "\"\");", 
       123_456_7890, 
         EmployeePosition.MANAGER);
 
