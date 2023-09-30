@@ -1,5 +1,6 @@
 package SystemObjects;
 
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 import DatabaseTables.EmployeePosition;
@@ -26,34 +27,47 @@ public class ProgramUser {
    * registered Employee. The program user goes through the Admin 
    * Registration Process before going through a Log-in Verification 
    * process.
+   * @param isCLIVersion Boolean variable to determin whether to use
+   * the CLI Version of the program. If false, the GUI version of the 
+   * program is used.
+   * 
   */ 
   public ProgramUser(Employees EmployeeTable, boolean isCLIVersion) {
 
-    if( !EmployeeTable.checkForRegisteredAdmin() ) {
+    if (isCLIVersion) {
+      programCLIVersion(EmployeeTable);
+    } else {
+      programGUIVersion(EmployeeTable);
+    }
+
+  }
+  
+  private void programCLIVersion(Employees EmployeeTable) {
+
+    if (!EmployeeTable.checkForRegisteredAdmin()) {
       // Call for register user as admin function
       registerAnAdminCLIVersion(EmployeeTable);
     }
 
-    if(isCLIVersion) {
-      logInCredentialsCLIVersion( EmployeeTable );
-    } else {
-      logInCredentialsGUIVersion();
-    }
+    // log in functions, choose which to use
+    logInCredentialsCLIVersion(EmployeeTable);
   }
+  
+  // TODO Create code for GUI version of the Program  
+  private void programGUIVersion( Employees EmployeeTable ) {
 
+  }
 
   // program entry functions
   public void logInCredentialsCLIVersion(Employees EmployeeTable) {
 
     try {
 
-      int employeeidEntry = employeeIdLogInEntry();
+      int employeeidEntry = employeeIdLogInEntryCLIVersion();
       String passwordinput = promptForStringInputInCLI("Enter password: ");
-
 
       Object[] resultsFromVerification = verifyCredentialsInsideDatabase(
           EmployeeTable, employeeidEntry, passwordinput);
-
 
       logInResponse((boolean) resultsFromVerification[0]);
 
@@ -63,12 +77,39 @@ public class ProgramUser {
         logInCredentialsCLIVersion(EmployeeTable);
       }
 
+      determineWhetherUserIsAdminOrNot(  (ResultSet) resultsFromVerification[1], EmployeeTable );
+
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  private int employeeIdLogInEntry() {
+  private void determineWhetherUserIsAdminOrNot(ResultSet employeeData, Employees employeeTable) {
+    
+    try {
+      
+      String admin = employeeData.getString(employeeTable.isAdminAuthorityLevel);
+      isAdminEmployee = (admin.equals("1")) ? true : false;
+
+      String username = 
+        employeeData.getString(employeeTable.firstnameColumn) + " " +
+        employeeData.getString(employeeTable.lastnameColumn);
+
+      String message =
+        (isAdminEmployee) ? 
+        "User "+ username +" is an Admin Employee" : 
+        "User " + username + " is an Employee not granted Admin Rights.";
+        
+      System.out.println(message);
+
+    } catch(Exception e ) {
+      e.printStackTrace();
+    }
+    
+  }
+  
+
+  private int employeeIdLogInEntryCLIVersion() {
 
     boolean isEmployeeIdValid = false;
     int convertedEmployeeIdInput = -1;
@@ -84,8 +125,9 @@ public class ProgramUser {
 
       } catch (NumberFormatException e) {
         System.out.println(
-            "please enter numbers to represent your Employee Id.\n" +
-                "NOTE: Improper inputs will repeat this prompt and returns back to entry of Employee Id.\n");
+        "please enter numbers to represent your Employee Id.\n" +
+        "NOTE: Improper inputs will repeat this prompt and returns back to entry of Employee Id.\n");
+      
       }
       
     } while (!isEmployeeIdValid);
@@ -107,14 +149,16 @@ public class ProgramUser {
   private void logInResponse( boolean validity) {
   
     isLogInSuccesful = validity;
-    String message = (isLogInSuccesful) ? "LOG IN SUCCESSFUL" : "log in failed";
+    String message = (isLogInSuccesful) ? "LOG IN SUCCESSFUL" : "LOG IN FAILED";
     System.out.println(message);
   }
 
 
 
-
-
+  /**
+   * To be implemented here when the GUI Skeleton is fixed and ready.
+   * 
+   * */ 
   public void logInCredentialsGUIVersion() {
 
 
@@ -127,12 +171,7 @@ public class ProgramUser {
   
   public void presentEmployeeDetailsCLIVersion( int employeeid ) {
   
-  
-  
   }
-
-
-
 
   public void signUpFeedbackToProgramUser() {
   

@@ -9,9 +9,9 @@ import DatabaseTables.Reservations;
  * Class contains the method to run when program starts and
  * handles the runtime methods of the Program.
  * 
+ * Run main method of the Class to start the program.
  * */ 
 public class ProgramRuntime {
-  
   
 
   public static void main(String[] args) {

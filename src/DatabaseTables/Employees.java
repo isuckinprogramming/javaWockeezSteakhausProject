@@ -391,32 +391,35 @@ public class Employees implements DBEntity {
      * <br></br> 
      * The first of the objects is a boolean variable representing the resulf of matching the employee id 
      * and the password inside the Employees table.
-     * <br></br> 
-     * The Second of the objects is a ResultSet variable representing the data of the employee
+     * <br></br>
+     * The second of the objects is a ResultSet variable representing the data of the employee
      * that is found inside the table.
      * 
     */ 
     public Object[] verifyEmployeeIdAndPassword(int employeeid, String password) {
 
         String mysqlQuery = 
-            "SELECT * FROM " + getTableName()
-            + " WHERE employeeid = " + employeeid + " AND password = \"" + password + "\" ";
-
+            "SELECT * FROM " + getTableName() +
+            " WHERE " +
+                employeeidColumn+ " = " + employeeid + " AND " +
+                passwordColumn + "= \"" + password + "\" AND " +
+                isEmployedCurrentlyColumn + " = 1 ";
+        
         try {
 
             ResultSet matchSetInEmployeesTable = DatabaseInitialize.executeMySQLQueryForResultSet(mysqlQuery);
             if (matchSetInEmployeesTable.next()) {
             
-            /*
-            redundant code - NOT NEEDED ANYMORE, HERE FOR REFERENCE
-            System.out.println( "Employee Registered : " + employeeid + " with password " + password + " \nEmployee data: ");
-            for (int index = 1; index < numberOfColumns; index++) {
-                System.out.print( matchSetInEmployeesTable.getString(index) + "  ");
-            }
-             */
+                /*
+                redundant code - NOT NEEDED ANYMORE, HERE FOR REFERENCE
+                System.out.println( "Employee Registered : " + employeeid + " with password " + password + " \nEmployee data: ");
+                for (int index = 1; index < numberOfColumns; index++) {
+                    System.out.print( matchSetInEmployeesTable.getString(index) + "  ");
+                }
+                */
 
-            return new Object[]{ true, matchSetInEmployeesTable  } ;
-        }
+                return new Object[]{ true, matchSetInEmployeesTable  } ;
+            }
         return new Object[] { false, null };
             
         } catch(SQLException e) {
