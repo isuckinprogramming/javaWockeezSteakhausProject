@@ -179,7 +179,9 @@ public class Employees implements DBEntity {
     
     /***
      * Creates an entry into the Employees table for an Employee without Admin authority.
-     *  
+     *  <br></br>
+     * The method should be used when there are no admin employee inside the Employees
+     * table because only admin employee can add other employees.
      * @param firstName First name of the Employee
      * @param lastName Last name of the Employee
      * @param password Password of the Employee, to be used when Employee logs in again.
@@ -398,6 +400,14 @@ public class Employees implements DBEntity {
 
     }
 
+
+    /***
+     * Flag an employee into WORKING STATE. The employee id is
+     * used to identify which Employee will be flagged as Working.
+     * 
+     * @return True if the operation is successful and False if problems 
+     * occurs during process.
+     * */ 
     public boolean turnEmployeeIntoWorking(int employeeid) {
 
         try {
@@ -416,8 +426,9 @@ public class Employees implements DBEntity {
 
     /***
      * Flagged a registered employee as Non-Working. Essentially fired or 
-     * temporarily removed from service. Set the Working and Authority of 
-     * the employee to false.
+     * temporarily removed from service. 
+     * <br></br>
+     * Internally, method sets the Working and Authority of the employee to false.
      * 
      * @param employeeid ID of Employee to be Flagged as Non-Working 
      * @return True if operation proceeds without any problems. False 
@@ -510,6 +521,29 @@ public class Employees implements DBEntity {
         return "delete from " + getTableName() + " " + getWhereCondition(employeeid);
     }
     
+
+    /***
+     * Removes an Employee in the Employees Table.  This method 
+     * must only be used under circumstances where removal of employee 
+     * won't cause other dependent table problems. 
+     * <br></br> 
+     * In cases wherein removing an employee entry because they are fired. 
+     * Flagging an Employee as Non-Working should be the preffered method 
+     * to prevent correlated data to be deleted.
+     * <br></br>
+     * To prevent the Data of employees who are removed from service
+     * from ever appearing in other Queries, Filtering out 
+     * the out-of-service employees should be the preffered method
+     * over removing the employee entry.
+     * <br></br>
+     * There are columns indicating the WORKING STATUS of the 
+     * employee, this column can be used to filter out the 
+     * Employees removed from service.
+     * <br></br>
+     * @param employeeid Id of the Employee to be removed
+     * @return True if operation successful else false.  
+     *  
+     * */ 
     public boolean removeEmployeeFromRecords(int employeeid) {
         
         try {
