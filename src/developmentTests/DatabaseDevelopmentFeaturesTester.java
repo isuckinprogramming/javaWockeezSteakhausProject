@@ -33,13 +33,14 @@ public class DatabaseDevelopmentFeaturesTester {
   private static void testingLogInVerification() {
     
     Employees employeeTable = new Employees();
-    boolean verificationResult = 
+    Object[] verificationResult = 
         employeeTable.verifyEmployeeIdAndPassword(
           93057,
           "bzzsttsssts"
         );
-        
-    System.out.println( " Result from Log-in : " + verificationResult);
+       
+
+    System.out.println( " Result from Log-in : " + ( (boolean) verificationResult[0] ) );
   }
   
 

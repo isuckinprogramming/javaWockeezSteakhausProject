@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
-import javax.xml.crypto.Data;
-
 import DatabaseObjectTemplates.DBEntity;
 import SystemObjects.DatabaseInitialize;
 
@@ -72,7 +70,7 @@ public class Employees implements DBEntity {
     // ------CREATION FUCNTIONS--------
     // ---------------------------------
 
-    public boolean registerAdminUser( 
+    public Object[] registerAdminUser( 
             String firstName ,
             String lastName ,
             String password , 
@@ -106,7 +104,10 @@ public class Employees implements DBEntity {
             removeEmployeeFromRecords(generatedId);
         }
 
-        return result;
+        return new Object[] {
+            result,
+            generatedId
+        };
     }
     
     /**

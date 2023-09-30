@@ -39,7 +39,7 @@ public class ApplicationDevelopmentFeaturesTester {
   private static void testingLogInVerification() {
     
     Employees employeeTable = new Employees();
-    boolean verificationResult = 
+    Object[] verificationResult = 
         employeeTable.verifyEmployeeIdAndPassword(
           93057,
           "bzzsttsssts"
