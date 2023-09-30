@@ -37,6 +37,59 @@ public class DatabaseInitialize {
   private static boolean isMySQLServerAccessible = true;
 
   /***
+   * Execute MySQL query inside the database. 
+   * @param querystring
+  */ 
+  public static boolean executeMySQLQueryInProjectDatabase(String querystring) {
+
+    try {
+
+      Statement statement = serverConnection.createStatement();
+      statement.execute(querystring);
+      return true;
+
+    } catch (SQLException e) {
+
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+
+    } catch (Exception e) {
+
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
+
+  }
+
+  /***
+   * Executes MySQL query that returns a ResultSet.
+   *  
+   * @param mysqlQuery MySQL Query in String form, and must be a Single statement only, no ; character in the end.
+   * @return ResultSet that Corresponds to the MySQL query of the Caller.
+  */ 
+  public static ResultSet executeMySQLQueryForResultSet(String mysqlQuery) {
+    
+    try {
+
+      Statement statement = serverConnection.createStatement();
+      ResultSet queryResult = statement.executeQuery(mysqlQuery);
+
+      return queryResult;
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return null;
+    } catch (Exception e ){
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+
+  
+  /***
    * Checks if the Project Database is created inside a server. Returns a boolean variable.
    * <br></br>
    * @param serverConnection Connection object that must be connected to a MySQL server.

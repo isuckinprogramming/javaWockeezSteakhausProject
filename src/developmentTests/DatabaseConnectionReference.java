@@ -7,14 +7,19 @@ package developmentTests;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import DatabaseTables.EmployeePosition;
+import DatabaseTables.Employees;
+
 import java.sql.Connection;
 
 public class DatabaseConnectionReference {
     public static void main(String[] args) throws Exception {
 
-        testingOutJDBC();
+        // testingOutJDBC();
         // CreateDatabaseTables();
     }
+
 
     public static void CreateDatabaseTables() {
 
