@@ -31,6 +31,7 @@ public class ProgramRuntime {
   }
   
   private void startUpDatabaseSettings() {
+    
     DatabaseInitialize.createConnectionToServer();
 
     DBEntity[] projectTables = {new Employees(), new Customer(), new Reservations()};
