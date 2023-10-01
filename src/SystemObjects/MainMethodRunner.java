@@ -11,12 +11,12 @@ import DatabaseTables.Reservations;
  * 
  * Run main method of the Class to start the program.
  * */ 
-public class ProgramRuntime {
+public class MainMethodRunner {
   
 
   public static void main(String[] args) {
 
-    ProgramRuntime programRunning = new ProgramRuntime();
+    MainMethodRunner programRunning = new MainMethodRunner();
     programRunning.start();
 
   }
@@ -26,7 +26,9 @@ public class ProgramRuntime {
     startUpDatabaseSettings();
 
     Employees employeeTable = new Employees();
-    ProgramUser currentProgramUser = new ProgramUser(employeeTable, true);
+    boolean isUsingCLI = false;
+    
+    ProgramUser currentProgramUser = new ProgramUser(employeeTable, isUsingCLI);
 
   }
   

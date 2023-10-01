@@ -10,12 +10,12 @@ import SystemObjects.DatabaseInitialize;
 
 public class Employees implements DBEntity {
 
-    private final String tableName = "employees";
+    public static final String tableName = "employees";
 
     // column names
     // all lower characters because mysql converts them into lower characters
    
-    public final String
+    public static final String
         // primary key
         employeeidColumn = "employeeid",
         
@@ -31,7 +31,7 @@ public class Employees implements DBEntity {
         isEmployedCurrentlyColumn = "isemployedcurrently",
         isAdminAuthorityLevel = "isadminauthoritylevel";
 
-        public final int numberOfColumns = 8;
+    public static final int NUMBER_OF_COLUMNS = 8;
     
 
     /***
