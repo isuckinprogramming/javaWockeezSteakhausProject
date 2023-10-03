@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.GroupLayout;
@@ -35,6 +36,7 @@ public class LoginForm extends  JFrame {
       initComponents();
       currentReferenceToProgramUser = user;
       employeeTableReference = employeeTable;
+      this.setVisible(true);
     }
     /** TODO the buttons can be found at the bottom, do not touch everything just for the function only.
     */
@@ -262,13 +264,15 @@ public class LoginForm extends  JFrame {
           employeePassWordEntryRaw
         );
 
-        // if (isLogInSuccesful) {
-        //           JOptionPane.showMessageDialog(
-        //     rootPane,
-        //     "Log In Success. Welcome!!",
-        //     "LOG IN Succesful Message",
-        //    JOptionPane.INFORMATION_MESSAGE);
-        // }
+        if (isLogInSuccesful) {
+            // JOptionPane.showMessageDialog(
+            // rootPane,
+            // "Log In Success. Welcome!!",
+            // "LOG IN Succesful Message",
+            // JOptionPane.INFORMATION_MESSAGE);
+         
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));         
+        }
 
       }catch (NumberFormatException e) {
         // TODO: handle exception

@@ -1,4 +1,4 @@
-package SystemObjects;
+package mainProgram;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +10,8 @@ import DatabaseTables.CustomerService;
 import DatabaseTables.Employees;
 import DatabaseTables.Reservations;
 import DatabaseTables.Rooms;
+import SystemObjects.DatabaseInitialize;
+import SystemObjects.ProgramUser;
 
 /***
  * Class contains the method to run when program starts and
@@ -29,20 +31,12 @@ public class MainMethodRunner {
 
   private void start() {
 
-    startUpDatabaseSettings();
+    projectCreationOfDatabaseDefaultSetup();
 
     Employees employeeTable = new Employees();
     boolean isUsingCLI = false;
 
     ProgramUser currentProgramUser = new ProgramUser(employeeTable, isUsingCLI);
-  }
-  
-  private void startUpDatabaseSettings() {
-    
-    DatabaseInitialize.createConnectionToServer();
-
-    projectCreationOfDatabaseDefaultSetup();
-    
   }
 
   
@@ -55,14 +49,12 @@ public class MainMethodRunner {
   private static void projectCreationOfDatabaseDefaultSetup() {
 
     try {
-
-      DatabaseInitialize.createProjectDatabaseInsideServer();
-
       /***
        *create table inside the created project database 
        *will throw an exception if the table exist or other MySQL query problems
        *DatabaseInitialize.createTableInsideDatabase(new Reservations());
       */
+      DatabaseInitialize.DatabaseStart();
 
       DBEntity[] allStrongTableEntities = {
         new Employees(),
@@ -93,9 +85,5 @@ public class MainMethodRunner {
        JOptionPane.ERROR_MESSAGE);
       exception.printStackTrace();
     }
-  
-  
-  
   }
-
 }

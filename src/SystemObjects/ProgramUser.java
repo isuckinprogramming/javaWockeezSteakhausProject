@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import DatabaseTables.EmployeePosition;
 import DatabaseTables.Employees;
+import GUI.EmployeeRegistration;
 import GUI.LoginForm;
 
 /***
@@ -74,24 +75,13 @@ public class ProgramUser {
   private void programGUIVersion(Employees EmployeeTable) {
 
 
-    if (!EmployeeTable.checkForRegisteredAdmin()) {
-    
-      // Call for register user as admin function
-      // registerAnEmployeeGUIVerion(  EmployeeTable  );
-      // boolean isRegistrationSuccess = registerAnEmployeeGUIVerion(
-      //   EmployeeTable,
-      //   "fisrtname here",
-      //   "lastname here",
-      //   "password here",
-      //   "CONTACT NUMBER HERE",
-      //   1   
-      // );
+    if (!EmployeeTable.checkForRegisteredAdmin() ) {
+      EmployeeRegistration registerEmployee = new EmployeeRegistration( this,EmployeeTable );
+    } else {
 
-      // registerAnEmployeeGUIVerion(EmployeeTable, null, null, null, null, VIEW_ADMIN)
+      LoginForm logInFormInstance = new LoginForm(this, EmployeeTable);
     }
-
-    LoginForm logInFormInstance = new LoginForm( this, EmployeeTable);
-    logInFormInstance.setVisible(true);
+    
   }
   
   public void programResourcesManagementCLIVerion() {
