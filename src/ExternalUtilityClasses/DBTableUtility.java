@@ -37,10 +37,10 @@ public class DBTableUtility {
     try {
       table = new JTable(buildTableModel(rs));
 
-      int numOfColumn = table.getColumnCount(); 
-      for (int index = 0; index < numOfColumn; index++) {
-        table.getColumnModel().getColumn(index).setMinWidth(250);
-      }
+      // int numOfColumn = table.getColumnCount(); 
+      // for (int index = 0; index < numOfColumn; index++) {
+      //   table.getColumnModel().getColumn(index).setMinWidth(250);
+      // }
       
       // dont let user set details for tables when viewing data
       table.setEnabled(false);
@@ -48,11 +48,11 @@ public class DBTableUtility {
       // Closes the Connection
 
       
-      JScrollPane scrollpane = new JScrollPane(table);
-      JFrame resultFrame = new JFrame();
-      resultFrame.setSize(1000, 1000  );
-      resultFrame.setContentPane(scrollpane);
-      resultFrame.setVisible(true);
+      // JScrollPane scrollpane = new JScrollPane(table);
+      // JFrame resultFrame = new JFrame();
+      // resultFrame.setSize(1000, 1000  );
+      // resultFrame.setContentPane(scrollpane);
+      // resultFrame.setVisible(true);
       
       JOptionPane.showMessageDialog(null, new JScrollPane(table));
     } catch (SQLException e) {
