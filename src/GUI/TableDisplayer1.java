@@ -10,7 +10,6 @@ import javax.swing.JTable;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
-import java.awt.Insets;
 
 public class TableDisplayer1 extends JFrame {
 	
@@ -20,6 +19,7 @@ public class TableDisplayer1 extends JFrame {
 		setUpComponents();
 		
 		this.table.setModel(model);
+		table.setEnabled(false);
 		this.setVisible(true);
 	}
 	
@@ -45,6 +45,11 @@ public class TableDisplayer1 extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * Do not modify this constructor. This constructor is needed
+	 * for the Eclipse Window Builder. 
+	 * 
+	 * Do not Rename the Variable Names because this will create a 
+	 * conflict with the Eclipse window builder. 
 	 */
 	public TableDisplayer1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

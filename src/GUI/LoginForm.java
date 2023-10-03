@@ -262,13 +262,13 @@ public class LoginForm extends  JFrame {
           employeePassWordEntryRaw
         );
 
-        if (isLogInSuccesful) {
-                  JOptionPane.showMessageDialog(
-            rootPane,
-            "Log In Success. Welcome!!",
-            "LOG IN Succesful Message",
-           JOptionPane.INFORMATION_MESSAGE);
-        }
+        // if (isLogInSuccesful) {
+        //           JOptionPane.showMessageDialog(
+        //     rootPane,
+        //     "Log In Success. Welcome!!",
+        //     "LOG IN Succesful Message",
+        //    JOptionPane.INFORMATION_MESSAGE);
+        // }
 
       }catch (NumberFormatException e) {
         // TODO: handle exception

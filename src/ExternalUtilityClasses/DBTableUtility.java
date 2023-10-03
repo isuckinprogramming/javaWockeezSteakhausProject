@@ -13,59 +13,50 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.TabableView;
 import javax.xml.crypto.Data;
 
+import DatabaseTables.Customer;
+import DatabaseTables.CustomerService;
+import DatabaseTables.Employees;
 import DatabaseTables.Reservations;
+import DatabaseTables.Rooms;
 import GUI.TableDisplayer1;
 import SystemObjects.DatabaseInitialize;
 
 public class DBTableUtility {
   
   public static void main(String[] args) throws Exception {
-
+    testViewingAllTableData();
+  }
+  
+  private static void testViewingAllTableData() {
 
     DatabaseInitialize.createConnectionToServer();
     DatabaseInitialize.createProjectDatabaseInsideServer();
     DatabaseInitialize.executeMySQLQueryInProjectDatabase("use " + DatabaseInitialize.getProjectDatabaseName());
-    ResultSet testSet = DatabaseInitialize.executeMySQLQueryForResultSet("SELECT * FROM " +Reservations.tableName);
-    // testingMethod(testSet);
 
-    TableDisplayer1 testingNewTableDisplayer = new TableDisplayer1(buildTableModel(testSet));
+    String start = "SELECT * FROM ";
+    ResultSet reservationSet = DatabaseInitialize.executeMySQLQueryForResultSet(start + Reservations.tableName);
+    ResultSet customerSet = DatabaseInitialize.executeMySQLQueryForResultSet(start + Customer.tableName);
+    ResultSet employeeSet = DatabaseInitialize.executeMySQLQueryForResultSet(start + Employees.tableName);
+    ResultSet customerServiceSet = DatabaseInitialize.executeMySQLQueryForResultSet(start + CustomerService.tableName);
+    ResultSet roomSet = DatabaseInitialize.executeMySQLQueryForResultSet(start + Rooms.tableName);
+
+    ResultSet[] setOfAllData = { reservationSet, customerSet, customerServiceSet, roomSet, employeeSet };
+
+    // TableDisplayer1 testingNewTableDisplayer = new TableDisplayer1(buildTableModel(testSet));
+    for (ResultSet dataSet : setOfAllData) {
+      displayResultSetDataToJFrame(dataSet);
+    }  
   }
 
-  public static void testingMethod( ResultSet rs ) {
-    // The Connection is obtained
-
-    // It creates and displays the table
-
-
-    JTable table;
+  public static void displayResultSetDataToJFrame( ResultSet rs ) {
+    
     try {
-      table = new JTable(buildTableModel(rs));
+      TableDisplayer1 table = new TableDisplayer1(buildTableModel(rs));
 
-      // int numOfColumn = table.getColumnCount(); 
-      // for (int index = 0; index < numOfColumn; index++) {
-      //   table.getColumnModel().getColumn(index).setMinWidth(250);
-      // }
-      
-      // dont let user set details for tables when viewing data
-      table.setEnabled(false);
-
-      // Closes the Connection
-
-      
-      // JScrollPane scrollpane = new JScrollPane(table);
-      // JFrame resultFrame = new JFrame();
-      // resultFrame.setSize(1000, 1000  );
-      // resultFrame.setContentPane(scrollpane);
-      // resultFrame.setVisible(true);
-      
-      JOptionPane.showMessageDialog(null, new JScrollPane(table));
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    }
-
-
-  
+    }  
   }
 
 

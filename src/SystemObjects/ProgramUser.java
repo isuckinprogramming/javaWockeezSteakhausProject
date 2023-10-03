@@ -75,6 +75,7 @@ public class ProgramUser {
 
 
     if (!EmployeeTable.checkForRegisteredAdmin()) {
+    
       // Call for register user as admin function
       // registerAnEmployeeGUIVerion(  EmployeeTable  );
       // boolean isRegistrationSuccess = registerAnEmployeeGUIVerion(
@@ -86,14 +87,6 @@ public class ProgramUser {
       //   1   
       // );
     }
-
-    // call method to log in first
-    // logInCredentialsGUIVersion();
-    //  boolean isLogInSuccess = logInCredentialsGUIVersion(
-    //     EmployeeTable,
-    //     int employeeid,
-    //     String password
-    // );
 
     LoginForm logInFormInstance = new LoginForm( this, EmployeeTable);
     logInFormInstance.setVisible(true);
@@ -223,10 +216,11 @@ public class ProgramUser {
       Employees EmployeeTable,
       int employeeidInput,
       String passwordInput
-    ) throws Exception {
-      return EmployeeTable.verifyEmployeeIdAndPassword(
-        employeeidInput, passwordInput
-      );
+  
+   ) throws Exception {
+      
+  return EmployeeTable.verifyEmployeeIdAndPassword(employeeidInput, passwordInput);
+  
   }
 
   private void logInResponseCLIVersion( boolean validity) {
@@ -260,29 +254,32 @@ public class ProgramUser {
       Object[] resultsFromVerification = verifyCredentialsInsideDatabase(
           EmployeeTable, employeeid, password);
 
-      logInResponseCLIVersion((boolean) resultsFromVerification[0]);
-
+      // logInResponseCLIVersion((boolean) resultsFromVerification[0]);
+      isLogInSuccesful = (boolean) resultsFromVerification[0];
+      
       // call this method again if results are false
-      if (!isLogInSuccesful) {
+      if (isLogInSuccesful) {
+
+        // will set the flag if user is admin or not
+        determineWhetherUserIsAdminOrNot(
+          (ResultSet) resultsFromVerification[1],
+            EmployeeTable
+        );
 
         JOptionPane.showMessageDialog(
           null, 
-           "Log-in is unsuccessful. Wrong Password or Employee ID",
-           "Employee Log-in Unsuccessful",
-            JOptionPane.INFORMATION_MESSAGE);
-
-        return false;
-
-      } else {
-        determineWhetherUserIsAdminOrNot((ResultSet) resultsFromVerification[1], EmployeeTable);
-        
-        
-        JOptionPane.showMessageDialog(
-          null, 
-           "Log-in is unsuccessful. Wrong Password or Employee ID",
-           "Employee Log-in Unsuccessful",
-            JOptionPane.INFORMATION_MESSAGE);
+          "Log-in is Successful. Welcome!!!!",
+          "Employee Log-in SUCCESS",
+          JOptionPane.INFORMATION_MESSAGE);
         return true;
+      } else {
+
+        JOptionPane.showMessageDialog(
+          null, 
+          "Log-in is unsuccessful. Wrong Password or Employee ID",
+          "Employee Log-in Unsuccessful",
+          JOptionPane.INFORMATION_MESSAGE);
+        return false;
       }
 
       
