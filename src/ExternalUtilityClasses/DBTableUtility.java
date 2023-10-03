@@ -10,9 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.TabableView;
 import javax.xml.crypto.Data;
 
 import DatabaseTables.Reservations;
+import GUI.TableDisplayer1;
 import SystemObjects.DatabaseInitialize;
 
 public class DBTableUtility {
@@ -24,7 +26,9 @@ public class DBTableUtility {
     DatabaseInitialize.createProjectDatabaseInsideServer();
     DatabaseInitialize.executeMySQLQueryInProjectDatabase("use " + DatabaseInitialize.getProjectDatabaseName());
     ResultSet testSet = DatabaseInitialize.executeMySQLQueryForResultSet("SELECT * FROM " +Reservations.tableName);
-    testingMethod(testSet);
+    // testingMethod(testSet);
+
+    TableDisplayer1 testingNewTableDisplayer = new TableDisplayer1(buildTableModel(testSet));
   }
 
   public static void testingMethod( ResultSet rs ) {

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import DatabaseTables.EmployeePosition;
 import DatabaseTables.Employees;
+import GUI.LoginForm;
 
 /***
  * Represents the user of the program and receives the data
@@ -30,7 +31,7 @@ public class ProgramUser {
   private boolean isAdminEmployee = false;
   private boolean isLogInSuccesful = false;
   private int employeeIdOfCurrentUser = -1;
-
+  public Employees EmployeeTableReference;
 
   /***
    *Creates an instance of the ProgramUser. The program user must
@@ -93,6 +94,9 @@ public class ProgramUser {
     //     int employeeid,
     //     String password
     // );
+
+    LoginForm logInFormInstance = new LoginForm( this, EmployeeTable);
+    logInFormInstance.setVisible(true);
   }
   
   public void programResourcesManagementCLIVerion() {

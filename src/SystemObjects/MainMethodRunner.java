@@ -33,9 +33,8 @@ public class MainMethodRunner {
 
     Employees employeeTable = new Employees();
     boolean isUsingCLI = false;
-    
-    ProgramUser currentProgramUser = new ProgramUser(employeeTable, isUsingCLI);
 
+    ProgramUser currentProgramUser = new ProgramUser(employeeTable, isUsingCLI);
   }
   
   private void startUpDatabaseSettings() {
