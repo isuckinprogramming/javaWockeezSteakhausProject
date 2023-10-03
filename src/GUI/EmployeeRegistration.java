@@ -349,8 +349,8 @@ public class EmployeeRegistration extends JFrame {
 			if (isRegistrationSuccessful) {
 				
 				LoginForm logInUser = new LoginForm(programUserReference, employeeTableReference);
-				
-				// CloseRegistrationWindow();
+				HideThisFrame();
+				// CloseRegistrationWindow();	
 			}	
 		}
 	};
@@ -358,9 +358,12 @@ public class EmployeeRegistration extends JFrame {
 	private void CloseRegistrationWindow() {
 
 		accessToTheFrame.dispatchEvent(
-			new WindowEvent(
-				accessToTheFrame, WindowEvent.WINDOW_CLOSING
-			)	);
+				new WindowEvent(
+						accessToTheFrame, WindowEvent.WINDOW_CLOSING));
+	}
+
+	private void HideThisFrame() {
+		this.setVisible(false);
 	}
 
 	public String[] extractAllContents() {

@@ -271,7 +271,12 @@ public class LoginForm extends  JFrame {
             // "LOG IN Succesful Message",
             // JOptionPane.INFORMATION_MESSAGE);
          
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));         
+            // this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));         
+            this.setVisible(false);
+            AdminDashboardUpdated adminDashboard = new AdminDashboardUpdated(
+                employeeTableReference,
+                currentReferenceToProgramUser
+            );
         }
 
       }catch (NumberFormatException e) {

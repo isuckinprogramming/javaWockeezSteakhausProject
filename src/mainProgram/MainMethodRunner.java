@@ -80,8 +80,8 @@ public class MainMethodRunner {
     } catch (CJCommunicationsException exception) {
       System.out.println("MYSQL SERVER NOT STARTED.");
       JOptionPane.showMessageDialog(null,
-          "MYSQL SERVER NOT STARTED. Try Starting MySQL Server first.",
-          "Database Initialization Error",
+      "MYSQL SERVER NOT STARTED. Try Starting MySQL Server first.",
+      "Database Initialization Error",
        JOptionPane.ERROR_MESSAGE);
       exception.printStackTrace();
     }

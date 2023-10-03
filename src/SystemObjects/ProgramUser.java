@@ -34,6 +34,10 @@ public class ProgramUser {
   private int employeeIdOfCurrentUser = -1;
   public Employees EmployeeTableReference;
 
+  public boolean isUserAdmin() {
+    return isAdminEmployee;
+  }
+
   /***
    *Creates an instance of the ProgramUser. The program user must
    be verified through a log-in process. Which is why an instance of 
