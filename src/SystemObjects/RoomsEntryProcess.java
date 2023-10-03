@@ -4,13 +4,11 @@ import DatabaseTables.CustomerService;
 import DatabaseTables.Rooms;
 
 public class RoomsEntryProcess {
-  
-
 
   public RoomsEntryProcess(
-    int roomid,
-  boolean isavailable  
-    
+      int roomid,
+      boolean isavailable
+
   ) {
 
     this.roomid = roomid;
@@ -20,11 +18,10 @@ public class RoomsEntryProcess {
   int roomid;
   boolean isavailable;
 
-
   public static void main(String[] args) {
-    
+
     RoomsEntryProcess test = new RoomsEntryProcess(
-      6969,true);
+        6969, true);
 
     test.testingInputDataToRoomsTable();
   }
@@ -35,28 +32,23 @@ public class RoomsEntryProcess {
     DatabaseInitialize.executeMySQLQueryInProjectDatabase(getDataInsertionQuery());
   }
 
-  
   public String getAllConcatenatedRoomsDetails() {
-  
-    return 
-      " ( " +
-      roomid + " ,  " +
-      isavailable + " ) ";
+
+    return " ( " +
+        roomid + " ,  " +
+        isavailable + " ) ";
   }
 
   public String getDataInsertionQuery() {
-    return 
-      "INSERT INTO " + Rooms.tableName +
-      getAllConcatenationOfColumns() +
-      " VALUES " + getAllConcatenatedRoomsDetails();
-  }
-  
-  public String getAllConcatenationOfColumns() {
-    return
-      " ( " +
-      Rooms.roomIdColumn + " , " +
-      Rooms.availableColumn + " ) ";
+    return "INSERT INTO " + Rooms.tableName +
+        getAllConcatenationOfColumns() +
+        " VALUES " + getAllConcatenatedRoomsDetails();
   }
 
+  public String getAllConcatenationOfColumns() {
+    return " ( " +
+        Rooms.roomIdColumn + " , " +
+        Rooms.availableColumn + " ) ";
+  }
 
 }

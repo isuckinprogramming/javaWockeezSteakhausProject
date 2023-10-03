@@ -4,12 +4,15 @@ import DatabaseTables.Reservations;
 
 public class ReservationProcess {
 
-
+  /**
+   * @param reserve
+   * 
+   */
   public ReservationProcess(
-    int reservId,
-    String startTime,
-    String endTime,
-    int partySize,
+      int reservId,
+      String startTime,
+      String endTime,
+      int partySize,
       int roomIdColumn) {
 
     this.reservId = reservId;
@@ -17,25 +20,24 @@ public class ReservationProcess {
     this.endTime = endTime;
     this.partySize = partySize;
     this.roomIdColumn = roomIdColumn;
+
+    testingInputDataToReservation();
   }
 
-  
   int reservId;
   String startTime;
   String endTime;
   int partySize;
   int roomIdColumn;
 
-
   public static void main(String[] args) {
-    
+
     ReservationProcess test = new ReservationProcess(
-      454444,
-      "2023-02-01 04:20:00",
-      "2023-02-02 04:20:00",
-      69,
-      69
-    );
+        454444,
+        "2023-02-01 04:20:00",
+        "2023-02-02 04:20:00",
+        69,
+        69);
 
     test.testingInputDataToReservation();
   }
@@ -45,7 +47,7 @@ public class ReservationProcess {
     DatabaseInitialize.createConnectionToServer();
     DatabaseInitialize.executeMySQLQueryInProjectDatabase("use " + DatabaseInitialize.getProjectDatabaseName());
     DatabaseInitialize.executeMySQLQueryInProjectDatabase(getDataInsertionQuery());
-    
+
   }
 
   private static String testAllReservationDetails() {
@@ -57,24 +59,25 @@ public class ReservationProcess {
     return startTime + " , " + endTime + " , " + partySize + " , " + roomIdColumn;
 
   }
-  
+
   public String getAllConcatenatedReservationDetails() {
-  
-    return " ( "+reservId + " , \""+ startTime + "\" , \"" + endTime + "\" , " + partySize + " , " + roomIdColumn + " ) ";
+
+    return " ( " + reservId + " , \"" + startTime + "\" , \"" + endTime + "\" , " + partySize + " , " + roomIdColumn
+        + " ) ";
   }
 
   public String getDataInsertionQuery() {
 
-    return "INSERT INTO " + Reservations.tableName +  getAllConcatenationOfColumns() + " VALUES " + getAllConcatenatedReservationDetails();
+    return "INSERT INTO " + Reservations.tableName + getAllConcatenationOfColumns() + " VALUES "
+        + getAllConcatenatedReservationDetails();
   }
-  
+
   public String getAllConcatenationOfColumns() {
-    return
-      " ( " +
-      Reservations.reservationIdColumn + " , " +
-      Reservations.startColumn + " , " +
-      Reservations.endColumn + " , " +
-      Reservations.partySizeColumn + " , " +
-      Reservations.roomIdColumn + " ) ";
+    return " ( " +
+        Reservations.reservationIdColumn + " , " +
+        Reservations.startColumn + " , " +
+        Reservations.endColumn + " , " +
+        Reservations.partySizeColumn + " , " +
+        Reservations.roomIdColumn + " ) ";
   }
 }

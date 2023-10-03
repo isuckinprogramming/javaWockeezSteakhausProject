@@ -3,34 +3,31 @@ package SystemObjects;
 import DatabaseTables.CustomerService;
 
 public class CustomerServiceEntryProcess {
-  
-
-
 
   public CustomerServiceEntryProcess(
-    int customerId,
-  int employeeId,
-  int reservationId  
-    
+      int customerId,
+      int employeeId,
+      int reservationId
+
   ) {
 
     this.customerId = customerId;
     this.employeeId = employeeId;
     this.reservationId = reservationId;
+
+    testingInputDataToCustomerServiceTable();
   }
 
   int customerId;
   int employeeId;
   int reservationId;
 
-
   public static void main(String[] args) {
-    
+
     CustomerServiceEntryProcess test = new CustomerServiceEntryProcess(
-      6969,
-      6969,
-      69
-    );
+        6969,
+        6969,
+        69);
 
     test.testingInputDataToCustomerServiceTable();
   }
@@ -41,29 +38,25 @@ public class CustomerServiceEntryProcess {
     DatabaseInitialize.executeMySQLQueryInProjectDatabase(getDataInsertionQuery());
   }
 
-  
   public String getAllConcatenatedCustomerServiceDetails() {
-  
-    return 
-      " ( " +
-      customerId + " ,  " +
-      employeeId + " , " +
-      reservationId + " ) ";
+
+    return " ( " +
+        customerId + " ,  " +
+        employeeId + " , " +
+        reservationId + " ) ";
   }
 
   public String getDataInsertionQuery() {
-    return 
-      "INSERT INTO " + CustomerService.tableName +
-      getAllConcatenationOfColumns() +
-      " VALUES " + getAllConcatenatedCustomerServiceDetails();
+    return "INSERT INTO " + CustomerService.tableName +
+        getAllConcatenationOfColumns() +
+        " VALUES " + getAllConcatenatedCustomerServiceDetails();
   }
-  
+
   public String getAllConcatenationOfColumns() {
-    return
-      " ( " +
-      CustomerService.customerIdColumn + " , " +
-      CustomerService.employeeIdColumn + " , " +
-      CustomerService.reservationIdColumn + " ) ";
+    return " ( " +
+        CustomerService.customerIdColumn + " , " +
+        CustomerService.employeeIdColumn + " , " +
+        CustomerService.reservationIdColumn + " ) ";
   }
 
 }
