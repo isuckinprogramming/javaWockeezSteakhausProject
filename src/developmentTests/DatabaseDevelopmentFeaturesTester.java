@@ -8,9 +8,11 @@ import com.mysql.cj.exceptions.CJCommunicationsException;
 
 import DatabaseObjectTemplates.DBEntity;
 import DatabaseTables.Customer;
+import DatabaseTables.CustomerService;
 import DatabaseTables.EmployeePosition;
 import DatabaseTables.Employees;
 import DatabaseTables.Reservations;
+import DatabaseTables.Rooms;
 
 /**
  * Class holds all methods to test the fucntions and classes
@@ -84,7 +86,7 @@ public class DatabaseDevelopmentFeaturesTester {
       ResultSet employeeData = employeeTable.getAllDataOfEmployee(51924);
       // must call next method to move pointer to first row 
       employeeData.next();
-      for (int index = 1; index < employeeTable.numberOfColumns ; index++){
+      for (int index = 1; index < employeeTable.NUMBER_OF_COLUMNS ; index++){
         System.out.print( employeeData.getString(index) + "  " );
       }
 
@@ -175,6 +177,11 @@ public class DatabaseDevelopmentFeaturesTester {
           new Reservations()
       };
 
+      DBEntity[] allWeakTableEntities = {
+        new Rooms(),
+        new CustomerService()
+      };
+
       // this method will create all tables for the project.
       DatabaseInitialize.createAllProjectTables(allStrongTableEntities);
 
@@ -182,8 +189,8 @@ public class DatabaseDevelopmentFeaturesTester {
        *creating the weak entities will be for last because they 
       *won't be created unless all tables that they are referencing is
       *created first.
-      *DatabaseInitialize.createAllProjectTables( allWeakTableEntities); 
       */
+      DatabaseInitialize.createAllProjectTables( allWeakTableEntities); 
 
     } catch (CJCommunicationsException exception) {
       System.out.println("MYSQL SERVER NOT STARTED.");

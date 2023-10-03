@@ -89,7 +89,7 @@ public class ApplicationDevelopmentFeaturesTester {
       ResultSet employeeData = employeeTable.getAllDataOfEmployee(51924);
       // must call next method to move pointer to first row 
       employeeData.next();
-      for (int index = 1; index < employeeTable.numberOfColumns ; index++){
+      for (int index = 1; index < employeeTable.NUMBER_OF_COLUMNS ; index++){
         System.out.print( employeeData.getString(index) + "  " );
       }
 

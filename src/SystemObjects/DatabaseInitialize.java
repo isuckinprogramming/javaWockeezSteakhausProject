@@ -361,6 +361,7 @@ public class DatabaseInitialize {
               getProjectDatabaseName() + " database.");
     } catch (SQLException e) {
       // exception when there are problems in mysql queries 
+      // TODO Turn of this comment block to view Exceptions when Creating table.
       // e.printStackTrace();
       System.out.println( "Table "+ tableEntity.getTableName() + " is already created. ");
     } catch (Exception e) {
