@@ -7,8 +7,8 @@ public class Reservations implements DBEntity {
   public static final String 
     tableName = "reservations",
     reservationIdColumn = "ReservationID",
-    startColumn = "starting time",
-    endColumn = "ending time",
+    startColumn = "startingtime",
+    endColumn = "endingtime",
     partySizeColumn = "PartySize",
     roomIdColumn = "roomId",
     statusColumn = "status";
