@@ -63,6 +63,13 @@ public class DatabaseInitialize {
 
   }
 
+  public static void DatabaseStart() {
+    DatabaseInitialize.createConnectionToServer();
+    DatabaseInitialize.executeMySQLQueryInProjectDatabase("use " + DatabaseInitialize.getProjectDatabaseName());
+  }
+
+
+
   /***
    * Executes MySQL query that returns a ResultSet.
    *  

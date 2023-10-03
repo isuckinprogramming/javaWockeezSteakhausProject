@@ -86,6 +86,8 @@ public class ProgramUser {
       //   "CONTACT NUMBER HERE",
       //   1   
       // );
+
+      // registerAnEmployeeGUIVerion(EmployeeTable, null, null, null, null, VIEW_ADMIN)
     }
 
     LoginForm logInFormInstance = new LoginForm( this, EmployeeTable);
@@ -105,23 +107,6 @@ public class ProgramUser {
     String userChoice = promptForStringInputInCLI(message);
 
   }
-
-  
-  private void chooseAction() {
-
-  }
-  
-// OPERATIONS ON EMPLOYEE TABLE 
-  private void registerAnEmployeeAsAdmin( int employeeIdToRegister) {
-
-  }
-
-  private void viewEmployeeData() {
-  
-  
-  
-  }
-
 
   // program entry functions
   public void logInCredentialsCLIVersion(Employees EmployeeTable) {
@@ -431,31 +416,5 @@ public class ProgramUser {
     }
  
   }
-
- 
-  
-  public void registerAnAdmin(
-      int employeeIdOfToBeAdminEmployee,
-      int employeeidOfInitiatingAdmin ) {
-
-  }
-
-  //employee actions 
-  //admin also inherits the action capabilities of the employee
-  public void createReservationForCustomer() {
-  
-  
-  }
-
-  public void createCustomerEntry() {
-
-  }
-
-  public void changeReservationStatus() {
- 
- 
-  }
-
-
 
 }
