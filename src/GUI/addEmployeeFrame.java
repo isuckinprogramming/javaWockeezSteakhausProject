@@ -4,15 +4,39 @@
  */
 package GUI;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author juderafael
  */
-public class addEmployeeFrame extends javax.swing.JFrame {
+public class addEmployeeFrame extends  JFrame {
 
     /**
      * Creates new form addEmployeeFrame
      */
+
+
+    public static void main(String[] args) {
+        addEmployeeFrame test = new addEmployeeFrame();
+        test.setVisible(true);
+    }
     public addEmployeeFrame() {
         initComponents();
     }
@@ -24,178 +48,215 @@ public class addEmployeeFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+  
+    
     private void initComponents() {
 
-        PanelforAll = new javax.swing.JPanel();
-        AddEmployee_TEXT = new javax.swing.JLabel();
-        FirstName = new javax.swing.JLabel();
-        FirstNameTextField = new javax.swing.JTextField();
-        LastNameLabel = new javax.swing.JLabel();
-        LastNameTextField = new javax.swing.JTextField();
-        ComboBox = new javax.swing.JComboBox<>();
-        PositionLabel = new javax.swing.JLabel();
-        FirstNameTextField1 = new javax.swing.JTextField();
-        ContactNumberLabel = new javax.swing.JLabel();
-        PasswordEmployee = new javax.swing.JPasswordField();
-        PasswordLabel = new javax.swing.JLabel();
-        AddEmployeeButton = new javax.swing.JButton();
+        initializeGUIComponents();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 400));
+        setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize( new Dimension(700, 400));
 
-        PanelforAll.setBackground(new java.awt.Color(255, 255, 255));
+        setUpAllGUIComponents();
 
-        AddEmployee_TEXT.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        AddEmployee_TEXT.setForeground(new java.awt.Color(206, 66, 87));
+        setUpGroupLayout();
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void initializeGUIComponents() {
+        
+        PanelforAll = new  JPanel();
+        AddEmployee_TEXT = new  JLabel();
+        FirstName = new  JLabel();
+        FirstNameTextField = new  JTextField();
+        LastNameLabel = new  JLabel();
+        LastNameTextField = new  JTextField();
+        ComboBox = new  JComboBox<>();
+        PositionLabel = new  JLabel();
+        FirstNameTextField1 = new  JTextField();
+        ContactNumberLabel = new  JLabel();
+        PasswordEmployee = new  JPasswordField();
+        PasswordLabel = new  JLabel();
+        AddEmployeeButton = new  JButton();
+    }
+  
+    private void setUpAllGUIComponents() {
+    
+        PanelforAll.setBackground(new   Color(255, 255, 255));
+
+        AddEmployee_TEXT.setFont(new   Font("Poppins", 1, 18)); // NOI18N
+        AddEmployee_TEXT.setForeground(new   Color(206, 66, 87));
         AddEmployee_TEXT.setText("ADD EMPLOYEE");
 
         FirstName.setText("First Name");
 
-        FirstNameTextField.setPreferredSize(new java.awt.Dimension(100, 25));
+        FirstNameTextField.setPreferredSize(new   Dimension(100, 25));
 
         LastNameLabel.setText("Last Name");
 
-        LastNameTextField.setPreferredSize(new java.awt.Dimension(100, 25));
+        LastNameTextField.setPreferredSize(new   Dimension(100, 25));
 
-        ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxActionPerformed(evt);
-            }
-        });
+        String[] nameOfAllPositions = {
+            "UNVERIFIED",
+            "MANAGER",
+            "CLERK",
+            "SECURITY STAFF",
+            "ROOM KEEPER"
+        };
+        ComboBox.setModel(new  DefaultComboBoxModel<>( nameOfAllPositions ) );
+        ComboBox.addActionListener( positionComboBoxAcion );
 
         PositionLabel.setText("Position");
 
-        FirstNameTextField1.setPreferredSize(new java.awt.Dimension(100, 25));
+        FirstNameTextField1.setPreferredSize(new   Dimension(100, 25));
 
         ContactNumberLabel.setText("Contact Number");
 
-        PasswordEmployee.setPreferredSize(new java.awt.Dimension(64, 25));
+        PasswordEmployee.setPreferredSize(new   Dimension(64, 25));
 
         PasswordLabel.setText("Password");
 
-        AddEmployeeButton.setForeground(new java.awt.Color(206, 66, 87));
+        AddEmployeeButton.setForeground( new Color(206, 66, 87) );
         AddEmployeeButton.setText("Add Employee");
-        AddEmployeeButton.setPreferredSize(new java.awt.Dimension(150, 35));
-        AddEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddEmployeeButtonActionPerformed(evt);
-            }
-        });
+        AddEmployeeButton.setPreferredSize( new Dimension(150, 35) );
+        AddEmployeeButton.addActionListener( addEmployeeAction );
+    }
 
-        javax.swing.GroupLayout PanelforAllLayout = new javax.swing.GroupLayout(PanelforAll);
+
+
+    private void setUpGroupLayout() {
+        GroupLayout PanelforAllLayout = new  GroupLayout(PanelforAll);
         PanelforAll.setLayout(PanelforAllLayout);
         PanelforAllLayout.setHorizontalGroup(
-            PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
             .addGroup(PanelforAllLayout.createSequentialGroup()
-                .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
                     .addGroup(PanelforAllLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(AddEmployee_TEXT))
                     .addGroup(PanelforAllLayout.createSequentialGroup()
                         .addGap(127, 127, 127)
-                        .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(LastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.TRAILING)
+                                .addComponent(LastNameTextField,  GroupLayout.PREFERRED_SIZE, 160,  GroupLayout.PREFERRED_SIZE)
+                                .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
                                     .addComponent(FirstName)
-                                    .addComponent(FirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(FirstNameTextField,  GroupLayout.PREFERRED_SIZE, 160,  GroupLayout.PREFERRED_SIZE)))
                             .addComponent(LastNameLabel)
                             .addComponent(PositionLabel)
-                            .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ComboBox,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
                         .addGap(87, 87, 87)
-                        .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelforAllLayout.createSequentialGroup()
                                 .addComponent(ContactNumberLabel)
                                 .addGap(65, 65, 65))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelforAllLayout.createSequentialGroup()
+                            .addGroup( GroupLayout.Alignment.LEADING, PanelforAllLayout.createSequentialGroup()
                                 .addGap(32, 32, 32)
-                                .addComponent(FirstNameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(FirstNameTextField1,  GroupLayout.PREFERRED_SIZE, 160,  GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
                                 .addComponent(PasswordLabel)
-                                .addComponent(PasswordEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(PasswordEmployee,  GroupLayout.PREFERRED_SIZE, 160,  GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(134, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelforAllLayout.createSequentialGroup()
+            .addGroup( GroupLayout.Alignment.TRAILING, PanelforAllLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(AddEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AddEmployeeButton,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
         PanelforAllLayout.setVerticalGroup(
-            PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
             .addGroup(PanelforAllLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(AddEmployee_TEXT)
                 .addGap(18, 18, 18)
-                .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
                     .addComponent(FirstName)
                     .addComponent(ContactNumberLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FirstNameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
+                    .addComponent(FirstNameTextField,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FirstNameTextField1,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
                     .addComponent(LastNameLabel)
                     .addComponent(PasswordLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelforAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PasswordEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
+                    .addComponent(LastNameTextField,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PasswordEmployee,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addComponent(PositionLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(AddEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ComboBox,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(AddEmployeeButton,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+         GroupLayout layout = new  GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelforAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addComponent(PanelforAll,  GroupLayout.DEFAULT_SIZE,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelforAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addComponent(PanelforAll,  GroupLayout.DEFAULT_SIZE,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxActionPerformed
-        /* TODO ComboBOX to add positions <Combobox> item 1, item 2, item 3, item 4,
-           just change this with the following combobox function
-            
-           String country[]={"India","Aus","U.S.A","England","Newzealand"};   
-           JComboBox cb=new JComboBox(country); - can be changed by JComboBox ComboBox = new JComboBox(country)
-            
-        */ 
-        
-    }//GEN-LAST:event_ComboBoxActionPerformed
-
-    private void AddEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeButtonActionPerformed
-        // TODO Add Employee Button
-    }//GEN-LAST:event_AddEmployeeButtonActionPerformed
+    
+    
+    }
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddEmployeeButton;
-    private javax.swing.JLabel AddEmployee_TEXT;
-    private javax.swing.JComboBox<String> ComboBox;
-    private javax.swing.JLabel ContactNumberLabel;
-    private javax.swing.JLabel FirstName;
-    private javax.swing.JTextField FirstNameTextField;
-    private javax.swing.JTextField FirstNameTextField1;
-    private javax.swing.JLabel LastNameLabel;
-    private javax.swing.JTextField LastNameTextField;
-    private javax.swing.JPanel PanelforAll;
-    private javax.swing.JPasswordField PasswordEmployee;
-    private javax.swing.JLabel PasswordLabel;
-    private javax.swing.JLabel PositionLabel;
+    
+    // jbutton
+    private  JButton AddEmployeeButton;
+    
+    // jcombobox<String>
+    private  JComboBox<String> ComboBox;
+    
+    // jtextfields
+    private  JTextField FirstNameTextField;
+    private  JTextField FirstNameTextField1;
+    private  JTextField LastNameTextField;
+    
+    // jpasswordfield
+    private  JPasswordField PasswordEmployee;
+
+    // jlabels
+    private  JLabel PasswordLabel;
+    private  JLabel PositionLabel;
+    private  JLabel LastNameLabel;
+    private  JLabel AddEmployee_TEXT;
+    private  JLabel ContactNumberLabel;
+    private  JLabel FirstName;
+
+    // jpanels
+    private  JPanel PanelforAll;
+
+
+    private ActionListener addEmployeeAction = (event)-> {
+
+    };
+
+    private ActionListener positionComboBoxAcion = ( event ) -> {
+        /* TODO ComboBOX to add positions <Combobox> item 1, item 2, item 3, item 4,
+           just change this with the following combobox function
+            
+           String country[]={"India","Aus","U.S.A","England","Newzealand"};   
+           JComboBox cb=new JComboBox(country); - can be changed by JComboBox ComboBox = new JComboBox(country)
+            
+        */
+        
+        // testing 
+        // System.out.println( "currently clicked : " + ComboBox.getSelectedIndex());
+        
+
+    };
+ 
     // End of variables declaration//GEN-END:variables
 }

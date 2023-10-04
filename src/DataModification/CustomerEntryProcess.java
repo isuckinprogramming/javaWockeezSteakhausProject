@@ -1,7 +1,8 @@
-package SystemObjects;
+package DataModification;
 
 import DatabaseTables.Customer;
 import DatabaseTables.Reservations;
+import SystemObjects.DatabaseInitialize;
 
 public class CustomerEntryProcess {
 

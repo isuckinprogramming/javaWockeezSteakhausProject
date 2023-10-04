@@ -1,7 +1,8 @@
-package SystemObjects;
+package DataModification;
 
 import DatabaseTables.CustomerService;
 import DatabaseTables.Rooms;
+import SystemObjects.DatabaseInitialize;
 
 public class RoomsEntryProcess {
 

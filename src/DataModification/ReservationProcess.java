@@ -1,6 +1,7 @@
-package SystemObjects;
+package DataModification;
 
 import DatabaseTables.Reservations;
+import SystemObjects.DatabaseInitialize;
 
 public class ReservationProcess {
 

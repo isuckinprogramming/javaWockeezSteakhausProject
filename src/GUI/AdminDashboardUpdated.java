@@ -1,18 +1,33 @@
 package GUI;
 
-// package javagui;
-
-import java.awt.event.WindowAdapter;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import  java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import java.sql.ResultSet;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
+
 import DatabaseTables.Customer;
+import DatabaseTables.CustomerService;
+import DatabaseTables.DBTableUtility;
 import DatabaseTables.Employees;
-import ExternalUtilityClasses.DBTableUtility;
+import DatabaseTables.Reservations;
+import DatabaseTables.Rooms;
 import SystemObjects.DatabaseInitialize;
 import SystemObjects.ProgramUser;
 
-public class AdminDashboardUpdated extends javax.swing.JFrame {
+public class AdminDashboardUpdated extends JFrame {
     
     public static void main(String[] args) {
 
@@ -43,241 +58,246 @@ public class AdminDashboardUpdated extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
+
+    private void initializeGUIComponents() {
+        OuterPanel = new JPanel();
+        InnerPanel = new JPanel();
+        AdminDashboard = new JLabel();
+        AddEmployee = new JButton();
+        addEmployeeAsAdmin = new JButton();
+        AddReservations = new JButton();
+        AddRoom = new JButton();
+        CancelReservation = new JButton();
+        FireEmployee = new JButton();
+        TurnDownRoom = new JButton();
+        ViewEmployee = new JButton();
+        ViewReservations = new JButton();
+        viewCustomerService = new JButton();
+        ViewRooms = new JButton();
+        ViewCustomers = new JButton();
+        AdminDashboard1 = new JLabel();
+    }
+    
     private void initComponents() {
+        
+        initializeGUIComponents();
+        
+        setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
 
-        OuterPanel = new javax.swing.JPanel();
-        InnerPanel = new javax.swing.JPanel();
-        AdminDashboard = new javax.swing.JLabel();
-        AddEmployee = new javax.swing.JButton();
-        addEmployeeAsAdmin = new javax.swing.JButton();
-        AddReservations = new javax.swing.JButton();
-        AddRoom = new javax.swing.JButton();
-        CancelReservation = new javax.swing.JButton();
-        FireEmployee = new javax.swing.JButton();
-        TurnDownRoom = new javax.swing.JButton();
-        ViewEmployee = new javax.swing.JButton();
-        ViewReservations = new javax.swing.JButton();
-        CustomerService = new javax.swing.JButton();
-        ViewRooms = new javax.swing.JButton();
-        ViewCustomers = new javax.swing.JButton();
-        AdminDashboard1 = new javax.swing.JLabel();
+        OuterPanel.setBackground(new  Color(206, 66, 87));
+        OuterPanel.setPreferredSize(new  Dimension(720, 400));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        InnerPanel.setBackground(new  Color(255, 255, 255));
 
-        OuterPanel.setBackground(new java.awt.Color(206, 66, 87));
-        OuterPanel.setPreferredSize(new java.awt.Dimension(720, 400));
-
-        InnerPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        AdminDashboard.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        AdminDashboard.setForeground(new java.awt.Color(206, 66, 87));
+        AdminDashboard.setFont(new  Font("Poppins", 1, 14)); // NOI18N
+        AdminDashboard.setForeground(new  Color(206, 66, 87));
         AdminDashboard.setText("Admin's Dashboard");
+        
+        setUpButtonSettings();
 
-        AddEmployee.setForeground(new java.awt.Color(206, 66, 87));
-        AddEmployee.setText("Add Employee");
-        AddEmployee.setSize(new java.awt.Dimension(100, 25));
-        AddEmployee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddEmployeeActionPerformed(evt);
-            }
-        });
-
-        addEmployeeAsAdmin.setForeground(new java.awt.Color(206, 66, 87));
-        addEmployeeAsAdmin.setText("Add Employee as Admin");
-        addEmployeeAsAdmin.setPreferredSize(new java.awt.Dimension(180, 25));
-        addEmployeeAsAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addEmployeeAsAdminActionPerformed(evt);
-            }
-        });
-
-        AddReservations.setForeground(new java.awt.Color(206, 66, 87));
-        AddReservations.setText("Add Reservations");
-        AddReservations.setPreferredSize(new java.awt.Dimension(140, 25));
-        AddReservations.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddReservationsActionPerformed(evt);
-            }
-        });
-
-        AddRoom.setForeground(new java.awt.Color(206, 66, 87));
-        AddRoom.setText("Add Room");
-        AddRoom.setPreferredSize(new java.awt.Dimension(100, 25));
-        AddRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddRoomActionPerformed(evt);
-            }
-        });
-
-        CancelReservation.setForeground(new java.awt.Color(206, 66, 87));
-        CancelReservation.setText("Cancel Reservation");
-        CancelReservation.setPreferredSize(new java.awt.Dimension(175, 25));
-        CancelReservation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelReservationActionPerformed(evt);
-            }
-        });
-
-        FireEmployee.setForeground(new java.awt.Color(206, 66, 87));
-        FireEmployee.setText("Fire Employee");
-        FireEmployee.setPreferredSize(new java.awt.Dimension(175, 25));
-        FireEmployee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FireEmployeeActionPerformed(evt);
-            }
-        });
-
-        TurnDownRoom.setForeground(new java.awt.Color(206, 66, 87));
-        TurnDownRoom.setText("Turn Down Room");
-        TurnDownRoom.setPreferredSize(new java.awt.Dimension(175, 25));
-        TurnDownRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TurnDownRoomActionPerformed(evt);
-            }
-        });
-
-        ViewEmployee.setForeground(new java.awt.Color(206, 66, 87));
-        ViewEmployee.setText("View Employees");
-        ViewEmployee.setPreferredSize(new java.awt.Dimension(156, 30));
-
-        ViewReservations.setForeground(new java.awt.Color(206, 66, 87));
-        ViewReservations.setText("View Reservations");
-        ViewReservations.setPreferredSize(new java.awt.Dimension(138, 30));
-
-        CustomerService.setForeground(new java.awt.Color(206, 66, 87));
-        CustomerService.setText("View Customer Service");
-        CustomerService.setPreferredSize(new java.awt.Dimension(165, 30));
-
-        ViewRooms.setForeground(new java.awt.Color(206, 66, 87));
-        ViewRooms.setText("View Rooms");
-        ViewRooms.setPreferredSize(new java.awt.Dimension(156, 30));
-        ViewRooms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ViewRoomsActionPerformed(evt);
-            }
-        });
-
-        ViewCustomers.setForeground(new java.awt.Color(206, 66, 87));
-        ViewCustomers.setText("View Customers");
-        ViewCustomers.setPreferredSize(new java.awt.Dimension(156, 30));
-        ViewCustomers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ViewCustomersActionPerformed(evt);
-              
-            }
-        });
-
-        AdminDashboard1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        AdminDashboard1.setForeground(new java.awt.Color(206, 66, 87));
+        AdminDashboard1.setFont(new  Font("Poppins", 1, 14)); // NOI18N
+        AdminDashboard1.setForeground(new  Color(206, 66, 87));
         AdminDashboard1.setText("Main Functions");
 
-        javax.swing.GroupLayout InnerPanelLayout = new javax.swing.GroupLayout(InnerPanel);
-        InnerPanel.setLayout(InnerPanelLayout);
-        InnerPanelLayout.setHorizontalGroup(
-            InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InnerPanelLayout.createSequentialGroup()
-                .addGroup(InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InnerPanelLayout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(ViewRooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ViewCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(InnerPanelLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(ViewEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ViewReservations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(CustomerService, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
-                        .addComponent(CancelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(FireEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TurnDownRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
-                        .addComponent(AddEmployee)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addEmployeeAsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AddReservations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
-                        .addComponent(AdminDashboard)
-                        .addGap(239, 239, 239))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
-                        .addComponent(AdminDashboard1)
-                        .addGap(258, 258, 258))))
-        );
-        InnerPanelLayout.setVerticalGroup(
-            InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InnerPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(AdminDashboard)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AddEmployee)
-                    .addComponent(addEmployeeAsAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddReservations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CancelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FireEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TurnDownRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(AdminDashboard1)
-                .addGap(18, 18, 18)
-                .addGroup(InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ViewEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ViewReservations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CustomerService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(InnerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ViewRooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ViewCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
-        );
+        setUpLayoutForInnerPanel();
 
-        javax.swing.GroupLayout OuterPanelLayout = new javax.swing.GroupLayout(OuterPanel);
-        OuterPanel.setLayout(OuterPanelLayout);
-        OuterPanelLayout.setHorizontalGroup(
-            OuterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OuterPanelLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(InnerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-        OuterPanelLayout.setVerticalGroup(
-            OuterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OuterPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(InnerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
+        SetUpLayoutForOuterPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
+         
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(OuterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addComponent(OuterPanel,  GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(OuterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addComponent(OuterPanel,  GroupLayout.DEFAULT_SIZE,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
+
+    private void setUpButtonSettings() {
+    
+    
+        AddEmployee.setForeground(new  Color(206, 66, 87));
+        AddEmployee.setText("Add Employee");
+        AddEmployee.setSize(new  Dimension(100, 25));
+        AddEmployee.addActionListener( addEmployeeAction );
+
+        addEmployeeAsAdmin.setForeground(new  Color(206, 66, 87));
+        addEmployeeAsAdmin.setText("Add Employee as Admin");
+        addEmployeeAsAdmin.setPreferredSize(new  Dimension(180, 25));
+        addEmployeeAsAdmin.addActionListener( addEmployeeAdAdminAction );
+
+        AddReservations.setForeground(new  Color(206, 66, 87));
+        AddReservations.setText("Add Reservations");
+        AddReservations.setPreferredSize(new  Dimension(140, 25));
+        AddReservations.addActionListener( addReservationAction );
+
+        AddRoom.setForeground(new  Color(206, 66, 87));
+        AddRoom.setText("Add Room");
+        AddRoom.setPreferredSize(new  Dimension(100, 25));
+        AddRoom.addActionListener( addRoomAction );
+
+        CancelReservation.setForeground(new  Color(206, 66, 87));
+        CancelReservation.setText("Cancel Reservation");
+        CancelReservation.setPreferredSize(new  Dimension(175, 25));
+        CancelReservation.addActionListener( cancelReservationAction );
+
+        FireEmployee.setForeground(new  Color(206, 66, 87));
+        FireEmployee.setText("Fire Employee");
+        FireEmployee.setPreferredSize(new  Dimension(175, 25));
+        FireEmployee.addActionListener( fireEmployeeAction );
+
+        TurnDownRoom.setForeground(new  Color(206, 66, 87));
+        TurnDownRoom.setText("Turn Down Room");
+        TurnDownRoom.setPreferredSize(new  Dimension(175, 25));
+        TurnDownRoom.addActionListener( turnDownRoomAction );
+
+        ViewEmployee.setForeground(new  Color(206, 66, 87));
+        ViewEmployee.setText("View Employees");
+        ViewEmployee.setPreferredSize(new Dimension(156, 30));
+        ViewEmployee.addActionListener( ( e ) -> {
+            DBTableUtility.displayAllDataFromTable(Employees.tableName);
+        } );
+
+        ViewReservations.setForeground(new  Color(206, 66, 87));
+        ViewReservations.setText("View Reservations");
+        ViewReservations.setPreferredSize(new Dimension(138, 30));
+        ViewReservations.addActionListener( (e) -> {        
+            DBTableUtility.displayAllDataFromTable(Reservations.tableName);
+        } );
+        
+
+        viewCustomerService.setForeground(new  Color(206, 66, 87));
+        viewCustomerService.setText("View Customer Service");
+        viewCustomerService.setPreferredSize(new Dimension(165, 30));
+        viewCustomerService.addActionListener( ( e) -> {
+            DBTableUtility.displayAllDataFromTable(CustomerService.tableName);
+        } );
+        
+        ViewRooms.setForeground(new  Color(206, 66, 87));
+        ViewRooms.setText("View Rooms");
+        ViewRooms.setPreferredSize(new  Dimension(156, 30));
+        ViewRooms.addActionListener( ( event ) -> {
+            DBTableUtility.displayAllDataFromTable(Rooms.tableName);
+        } );
+
+        ViewCustomers.setForeground(new  Color(206, 66, 87));
+        ViewCustomers.setText("View Customers");
+        ViewCustomers.setPreferredSize(new  Dimension(156, 30));
+        ViewCustomers.addActionListener((event) -> {
+            DBTableUtility.displayAllDataFromTable(Customer.tableName);
+        } );
+    }
+
+    private void SetUpLayoutForOuterPanel() {
+        
+        GroupLayout OuterPanelLayout = new  GroupLayout(OuterPanel);
+        OuterPanel.setLayout(OuterPanelLayout);
+        OuterPanelLayout.setHorizontalGroup(
+            OuterPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addGroup(OuterPanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(InnerPanel,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        OuterPanelLayout.setVerticalGroup(
+            OuterPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addGroup(OuterPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(InnerPanel,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+    
+    }
+
+    private void setUpLayoutForInnerPanel() {
+    
+        GroupLayout InnerPanelLayout = new  GroupLayout(InnerPanel);
+        InnerPanel.setLayout(InnerPanelLayout);
+        InnerPanelLayout.setHorizontalGroup(
+            InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addGroup(InnerPanelLayout.createSequentialGroup()
+                .addGroup(InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+                    .addGroup(InnerPanelLayout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(ViewRooms,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ViewCustomers,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InnerPanelLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(ViewEmployee,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ViewReservations,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewCustomerService,  GroupLayout.PREFERRED_SIZE, 180,  GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup( GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+                    .addGroup( GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
+                        .addComponent(CancelReservation,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(FireEmployee,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TurnDownRoom,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup( GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
+                        .addComponent(AddEmployee)
+                        .addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addEmployeeAsAdmin,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(AddReservations,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(AddRoom,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup( GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
+                        .addComponent(AdminDashboard)
+                        .addGap(239, 239, 239))
+                    .addGroup( GroupLayout.Alignment.TRAILING, InnerPanelLayout.createSequentialGroup()
+                        .addComponent(AdminDashboard1)
+                        .addGap(258, 258, 258))))
+        );
+        InnerPanelLayout.setVerticalGroup(
+            InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            .addGroup(InnerPanelLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(AdminDashboard)
+                .addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddEmployee)
+                    .addComponent(addEmployeeAsAdmin,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddReservations,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AddRoom,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
+                    .addComponent(CancelReservation,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FireEmployee,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TurnDownRoom,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(AdminDashboard1)
+                .addGap(18, 18, 18)
+                .addGroup(InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
+                    .addComponent(ViewEmployee,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ViewReservations,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewCustomerService,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(InnerPanelLayout.createParallelGroup( GroupLayout.Alignment.BASELINE)
+                    .addComponent(ViewRooms,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ViewCustomers,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
+        );
+
+    
+    }
+
+
+    private void AddEmployeeActionPerformed(  ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
         //TODO ButtonForAdding Employee
         //Here once we click the button, it will go to addEmployeeFrame (Sample Code, Sample Run) >>
         admins.addWindowListener(new WindowAdapter() {
@@ -294,13 +314,8 @@ public class AdminDashboardUpdated extends javax.swing.JFrame {
         /* sample code for opening a new window and closing an old window*/
     }//GEN-LAST:event_AddEmployeeActionPerformed
 
-    private void addEmployeeAsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeAsAdminActionPerformed
-        // TODO addEmployee as admin
-        //Apply JOptionPane Here
-        //After adding goes back to "setVisible Dashboard"
-    }//GEN-LAST:event_addEmployeeAsAdminActionPerformed
 
-    private void AddReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddReservationsActionPerformed
+    private void AddReservationsActionPerformed(  ActionEvent evt) {//GEN-FIRST:event_AddReservationsActionPerformed
            
             admins.addWindowListener(new WindowAdapter() {
                
@@ -314,82 +329,99 @@ public class AdminDashboardUpdated extends javax.swing.JFrame {
             //After adding goes back to "setVisible Dashboard"
            
     }//GEN-LAST:event_AddReservationsActionPerformed
-
-    private void AddRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddRoomActionPerformed
-        // TODO AddRoom
-        /* Put JOption Here */
-        //After adding goes back to "setVisible Dashboard"
-               
-    }//GEN-LAST:event_AddRoomActionPerformed
-
-    private void CancelReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelReservationActionPerformed
-        // TODO CancelReservation
-        // Add JOption Here: Reservation ID and goes back to dashboard "admins.setVisible();
-        //After adding goes back to "setVisible Dashboard"
-    }//GEN-LAST:event_CancelReservationActionPerformed
-
-    private void FireEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FireEmployeeActionPerformed
-        // TODO FireEmployee
-        // Add JOption Here    
-        //After adding goes back to "setVisible Dashboard"
-    }//GEN-LAST:event_FireEmployeeActionPerformed
-
-    private void TurnDownRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TurnDownRoomActionPerformed
-        // TODO turnDownRoom
-        // Add JOption Here
-        //After adding goes back to "setVisible Dashboard"
-    }//GEN-LAST:event_TurnDownRoomActionPerformed
-
-    private void ViewRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewRoomsActionPerformed
-        // TODO ViewRooms function Here
-        //After adding goes back to "setVisible Dashboard"
-        ResultSet rs = DatabaseInitialize.executeMySQLQueryForResultSet("SELECT * FROM rooms ");
-        DBTableUtility.displayResultSetDataToJFrame(rs);
-    }//GEN-LAST:event_ViewRoomsActionPerformed
-
-    private void ViewCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewCustomersActionPerformed
-        // TODO ViewCustomers function here
-        //After adding goes back to "setVisible Dashboard"
-
-        ResultSet rs = DatabaseInitialize.executeMySQLQueryForResultSet("SELECT * FROM " + Customer.tableName);
-        DBTableUtility.displayResultSetDataToJFrame(rs);
-    }//GEN-LAST:event_ViewCustomersActionPerformed
- 
+    
+// --------------VIEW TABLE FUNCTIONS------------------
+    
     //Methods for isAdmin or isEmployee    
     // public boolean isEmployee() {
-    //     return programUserReference.isAdmin;
-    // }
+        //     return programUserReference.isAdmin;
+        // }
     
     //TODO Function for disabling employee to admin's functions
+
     public void disableEmployeesFunction() {
-         if(programUserReference.isUserAdmin()) {
-             AddEmployee.setEnabled(false);
-             AddEmployee.setVisible(true);
-             // Seperator
-             FireEmployee.setVisible(false);   
-             // Seperator
-             addEmployeeAsAdmin.setEnabled(false);
-             addEmployeeAsAdmin.setVisible(false);
-             // Seperator
-             ViewEmployee.setVisible(false);       
-         }
+
+        if ( !programUserReference.isUserAdmin() ) {
+            return;
+        }
+
+        AddEmployee.setEnabled(false);
+        AddEmployee.setVisible(true);
+        // Seperator
+        FireEmployee.setVisible(false);
+        // Seperator
+        addEmployeeAsAdmin.setEnabled(false);
+        addEmployeeAsAdmin.setVisible(false);
+        // Seperator
+        ViewEmployee.setVisible(false);
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddEmployee;
-    private javax.swing.JButton AddReservations;
-    private javax.swing.JButton AddRoom;
-    private javax.swing.JLabel AdminDashboard;
-    private javax.swing.JLabel AdminDashboard1;
-    private javax.swing.JButton CancelReservation;
-    private javax.swing.JButton CustomerService;
-    private javax.swing.JButton FireEmployee;
-    private javax.swing.JPanel InnerPanel;
-    private javax.swing.JPanel OuterPanel;
-    private javax.swing.JButton TurnDownRoom;
-    private javax.swing.JButton ViewCustomers;
-    private javax.swing.JButton ViewEmployee;
-    private javax.swing.JButton ViewReservations;
-    private javax.swing.JButton ViewRooms;
-    private javax.swing.JButton addEmployeeAsAdmin;
+    
+    // jlabels
+    private  JLabel AdminDashboard;
+    private JLabel AdminDashboard1;
+    
+    // jpanels
+    private  JPanel InnerPanel;
+    private JPanel OuterPanel;
+    
+    
+    // jbuttons 
+    // TODO view buttons
+    private JButton ViewCustomers;
+    private JButton ViewEmployee;
+    private JButton ViewReservations;
+    private JButton ViewRooms;
+    private JButton viewCustomerService;
+    
+    // TODO action buttons
+    // FLAG BUTTONS
+    private JButton CancelReservation;
+    private JButton FireEmployee; 
+    private JButton TurnDownRoom;
+    
+    // ADD BUTTONS 
+    private JButton addEmployeeAsAdmin;
+    private JButton AddEmployee;
+    private JButton AddReservations;
+    private JButton AddRoom;
+    
+    
+    // ----- FLAGGING FUNCTIONS ----------------------------
+    private ActionListener turnDownRoomAction = (event)-> {
+        
+    };
+
+    
+    private ActionListener cancelReservationAction = (event) -> {
+        
+    };
+    
+    
+    private ActionListener fireEmployeeAction = (event)-> {
+        
+    };
+    
+    // ------------------- ADD FUNCTIONS -------------------
+    private ActionListener addReservationAction = (event) -> {
+        
+    };
+    
+    
+    private ActionListener addEmployeeAdAdminAction = (event) -> {
+        
+    };
+
+
+    private ActionListener addRoomAction = (event)-> {
+        
+    };
+    
+    private ActionListener addEmployeeAction = (event) -> {
+        
+    };
+
     // End of variables declaration//GEN-END:variables
+                
 }

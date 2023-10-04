@@ -1,23 +1,10 @@
-package ExternalUtilityClasses;
+package DatabaseTables;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.TabableView;
-import javax.xml.crypto.Data;
-
-import DatabaseTables.Customer;
-import DatabaseTables.CustomerService;
-import DatabaseTables.Employees;
-import DatabaseTables.Reservations;
-import DatabaseTables.Rooms;
 import GUI.TableDisplayer1;
 import SystemObjects.DatabaseInitialize;
 
@@ -43,16 +30,23 @@ public class DBTableUtility {
     ResultSet[] setOfAllData = { reservationSet, customerSet, customerServiceSet, roomSet, employeeSet };
 
     // TableDisplayer1 testingNewTableDisplayer = new TableDisplayer1(buildTableModel(testSet));
-    for (ResultSet dataSet : setOfAllData) {
-      displayResultSetDataToJFrame(dataSet);
-    }  
+    // for (ResultSet dataSet : setOfAllData) {
+    //   displayResultSetDataToJFrame(dataSet);
+    // }
+  }
+  
+  public static void displayAllDataFromTable( String tablename ) {
+    
+    ResultSet resultSet = DatabaseInitialize.executeMySQLQueryForResultSet("SELECT * FROM " + tablename);
+    displayResultSetDataToJFrame(resultSet, tablename);
   }
 
-  public static void displayResultSetDataToJFrame( ResultSet rs ) {
+
+  public static void displayResultSetDataToJFrame( ResultSet rs, String jframeTitle ) {
     
     try {
       TableDisplayer1 table = new TableDisplayer1(buildTableModel(rs));
-
+      table.setTitle(jframeTitle);
     } catch (SQLException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -82,9 +76,7 @@ public class DBTableUtility {
       data.add(vector);
     }
     DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-    
+
     return tableModel;
-
   }
-
 }
