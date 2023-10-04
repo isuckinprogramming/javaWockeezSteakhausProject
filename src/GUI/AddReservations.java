@@ -15,10 +15,15 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+
+import DataModification.DataModificationForDatabase;
+import DataModification.ReservationProcess;
+import SystemObjects.ProgramUser;
 
 /**
  *
@@ -26,16 +31,21 @@ import javax.swing.WindowConstants;
  */
 public class AddReservations extends   JFrame {
 
+
+    private ProgramUser refToCurrentProgramUser;
     /**
      * Creates new form AddReservations
      */
     public static void main(String[] args) {
-        AddReservations test = new AddReservations();
-        test.setVisible(true);
+        // AddReservations test = new AddReservations();
+        // test.setVisible(true);
     }
 
-    public AddReservations() {
+    public AddReservations(ProgramUser currentUser) {
+    
+        refToCurrentProgramUser = currentUser;
         initComponents();
+    
     }
 
     /**
@@ -80,12 +90,12 @@ public class AddReservations extends   JFrame {
         ContactNumber = new   JTextField();
         ContactNumberLavel = new   JLabel();
         AddReservation = new   JButton();
-        AddCustomerDetails = new   JButton();
+        // AddCustomerDetails = new   JButton();
     }
 
     private void setUpGUIComponents() {
     
-        setDefaultCloseOperation(  WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(  JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize(new   Dimension(700, 450));
 
         PanelHolder.setBackground(new   Color(255, 255, 255));
@@ -165,20 +175,16 @@ public class AddReservations extends   JFrame {
         AddReservation.setForeground(new   Color(206, 66, 87));
         AddReservation.setText("Add Reservation");
         AddReservation.setPreferredSize(new   Dimension(127, 30));
-        AddReservation.addActionListener(new  ActionListener() {
-            public void actionPerformed( ActionEvent evt) {
-                AddReservationActionPerformed(evt);
-            }
-        });
+        AddReservation.addActionListener(addReservationAction);
 
-        AddCustomerDetails.setForeground(new   Color(206, 66, 87));
-        AddCustomerDetails.setText("Add Customer Details");
-        AddCustomerDetails.setPreferredSize(new   Dimension(158, 30));
-        AddCustomerDetails.addActionListener(new  ActionListener() {
-            public void actionPerformed( ActionEvent evt) {
-                AddCustomerDetailsActionPerformed(evt);
-            }
-        });
+        // AddCustomerDetails.setForeground(new   Color(206, 66, 87));
+        // AddCustomerDetails.setText("Add Customer Details");
+        // AddCustomerDetails.setPreferredSize(new   Dimension(158, 30));
+        // AddCustomerDetails.addActionListener(new  ActionListener() {
+        //     public void actionPerformed( ActionEvent evt) {
+        //         AddCustomerDetailsActionPerformed(evt);
+        //     }
+        // });
 
     }
 
@@ -287,7 +293,7 @@ public class AddReservations extends   JFrame {
                 .addGap(100, 100, 100)
                 .addComponent(AddReservation,   GroupLayout.PREFERRED_SIZE,   GroupLayout.DEFAULT_SIZE,   GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(  LayoutStyle.ComponentPlacement.RELATED,   GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AddCustomerDetails,   GroupLayout.PREFERRED_SIZE, 185,   GroupLayout.PREFERRED_SIZE)
+                // .addComponent(AddCustomerDetails,   GroupLayout.PREFERRED_SIZE, 185,   GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93))
         );
         PanelHolderLayout.setVerticalGroup(
@@ -302,7 +308,10 @@ public class AddReservations extends   JFrame {
                 .addPreferredGap(  LayoutStyle.ComponentPlacement.RELATED,   GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelHolderLayout.createParallelGroup(  GroupLayout.Alignment.BASELINE)
                     .addComponent(AddReservation,   GroupLayout.PREFERRED_SIZE,   GroupLayout.DEFAULT_SIZE,   GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddCustomerDetails,   GroupLayout.PREFERRED_SIZE,   GroupLayout.DEFAULT_SIZE,   GroupLayout.PREFERRED_SIZE))
+                                        // .addComponent(AddCustomerDetails, GroupLayout.PREFERRED_SIZE,
+                                        //         GroupLayout.DEFAULT_SIZE,
+                                        //         GroupLayout.PREFERRED_SIZE)
+                    )
                 .addContainerGap())
         );
 
@@ -364,6 +373,7 @@ public class AddReservations extends   JFrame {
     }//GEN-LAST:event_LastNameActionPerformed
 
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     
     // jpanel
@@ -374,14 +384,14 @@ public class AddReservations extends   JFrame {
     
     
     // jtextfield
-    private   JTextField ContactNumber;
-    private   JTextField LastName;
+    private JTextField ContactNumber;
+    private   JTextField Email;
+    private   JTextField FirstName;
+    private JTextField LastName;
+    
     private   JTextField PartySize;
     private   JTextField StartingTime;
-    private   JTextField Email;
-    private   JTextField EndingTime;    
-    private   JTextField FirstName;
-    
+    private JTextField EndingTime;
 
     // jlabel 
     private JLabel ContactNumberLavel;
@@ -395,8 +405,57 @@ public class AddReservations extends   JFrame {
     private JLabel EmailLabel;
     
     // jbutton
-    private JButton AddCustomerDetails;
+    // private JButton AddCustomerDetails;
     private JButton AddReservation;
+
+    private ActionListener addReservationAction = (event) -> {
+        
+        int contactNumberConverted = -1;
+        int partySizeNum = -1;
+        int roomid = -1;
+        try {
+            contactNumberConverted = Integer.parseInt(ContactNumber.getText());
+            
+            partySizeNum = Integer.parseInt(PartySize.getText());
+        
+            roomid = Integer.parseInt(
+                JOptionPane.showInputDialog(
+                    null,
+                    "NOTE : ROOM MUST BE AVAILABLE\nEnter the ID of the Room for the Reservation : ",
+                    "Input Room Id For Reservation",
+                     JOptionPane.QUESTION_MESSAGE
+                )
+            );
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "please input numbers only.",
+                    "Reservation Entry input warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        DataModificationForDatabase.createReservationAndCustomerEntry(
+            refToCurrentProgramUser,
+
+            // data for customer 
+            FirstName.getText(),
+            LastName.getText(),
+            Email.getText(),
+            contactNumberConverted,
+
+            // data for reservation
+            StartingTime.getText(),
+            EndingTime.getText(),
+            partySizeNum,
+            roomid
+        );
+
+
+
+        
+    };
 
     // End of variables declaration//GEN-END:variables
 }

@@ -3,12 +3,10 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import  java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +14,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
 
 import DatabaseTables.Customer;
 import DatabaseTables.CustomerService;
@@ -24,7 +21,6 @@ import DatabaseTables.DBTableUtility;
 import DatabaseTables.Employees;
 import DatabaseTables.Reservations;
 import DatabaseTables.Rooms;
-import SystemObjects.DatabaseInitialize;
 import SystemObjects.ProgramUser;
 
 public class AdminDashboardUpdated extends JFrame {
@@ -52,8 +48,6 @@ public class AdminDashboardUpdated extends JFrame {
     // //Creating abstaction class to call 
     AdminDashboardUpdated admins = this;
     
-    addEmployeeFrame addEmployee = new addEmployeeFrame();
-    AddReservations add = new AddReservations();
     
 
     @SuppressWarnings("unchecked")
@@ -83,7 +77,7 @@ public class AdminDashboardUpdated extends JFrame {
         
         initializeGUIComponents();
         
-        setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE);
 
         OuterPanel.setBackground(new  Color(206, 66, 87));
         OuterPanel.setPreferredSize(new  Dimension(720, 400));
@@ -300,15 +294,15 @@ public class AdminDashboardUpdated extends JFrame {
     private void AddEmployeeActionPerformed(  ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
         //TODO ButtonForAdding Employee
         //Here once we click the button, it will go to addEmployeeFrame (Sample Code, Sample Run) >>
-        admins.addWindowListener(new WindowAdapter() {
-            public void windowClosed(WindowEvent e) {
-                // addEmployee.setVisible(true);
-                /* TODO once we click the button ADD EMPLOYEE then JOption will pop up
-                String pop up = JOptionPane.showMessageDialog(null, "Employee Registered");*/
-            }
-        });
+        // admins.addWindowListener(new WindowAdapter() {
+        //     public void windowClosed(WindowEvent e) {
+        //         // addEmployee.setVisible(true);
+        //         /* TODO once we click the button ADD EMPLOYEE then JOption will pop up
+        //         String pop up = JOptionPane.showMessageDialog(null, "Employee Registered");*/
+        //     }
+        // });
        
-        admins.dispose();
+        // admins.dispose();
         //After adding goes back to "setVisible Dashboard"
         
         /* sample code for opening a new window and closing an old window*/
@@ -317,15 +311,16 @@ public class AdminDashboardUpdated extends JFrame {
 
     private void AddReservationsActionPerformed(  ActionEvent evt) {//GEN-FIRST:event_AddReservationsActionPerformed
            
-            admins.addWindowListener(new WindowAdapter() {
+            // admins.addWindowListener(new WindowAdapter() {
                
-                public void windowClosed(WindowEvent e) {
-                    add.setLocationRelativeTo(null);
-                    add.setVisible(true);
-                }
-            });
+            //     public void windowClosed(WindowEvent e) {
+            //         add.setLocationRelativeTo(null);
+            //         add.setVisible(true);
+            //     }
+            // });
             
-            admins.dispose();
+            // admins.dispose();
+
             //After adding goes back to "setVisible Dashboard"
            
     }//GEN-LAST:event_AddReservationsActionPerformed
@@ -341,7 +336,7 @@ public class AdminDashboardUpdated extends JFrame {
 
     public void disableEmployeesFunction() {
 
-        if ( !programUserReference.isUserAdmin() ) {
+        if (!programUserReference.isUserAdmin()) {
             return;
         }
 
@@ -356,6 +351,8 @@ public class AdminDashboardUpdated extends JFrame {
         ViewEmployee.setVisible(false);
     }
     
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     
     // jlabels
@@ -390,37 +387,42 @@ public class AdminDashboardUpdated extends JFrame {
     
     // ----- FLAGGING FUNCTIONS ----------------------------
     private ActionListener turnDownRoomAction = (event)-> {
-        
+        // TODO will use a joptionpane to receive roomid to turn into an unavailable room
     };
 
     
     private ActionListener cancelReservationAction = (event) -> {
-        
+        // TODO will use a  joptionpane to receive reservationid to cancel
     };
     
     
     private ActionListener fireEmployeeAction = (event)-> {
-        
+        // will use a joptionpane to receive employeeid to fire employee
     };
     
     // ------------------- ADD FUNCTIONS -------------------
     private ActionListener addReservationAction = (event) -> {
-        
-    };
-    
-    
-    private ActionListener addEmployeeAdAdminAction = (event) -> {
-        
-    };
+        AddReservations reservationFrame = new AddReservations(programUserReference);
+        reservationFrame.setVisible(true);
 
+    };
 
     private ActionListener addRoomAction = (event)-> {
-        
+        // will use a joption pane to present notification message
     };
     
     private ActionListener addEmployeeAction = (event) -> {
-        
+        addEmployeeFrame addEmployee = new addEmployeeFrame();
+
+        // addEmployeeFrame addEmployee = new addEmployeeFrame( programUserReference );
+        addEmployee.setVisible(true);
     };
+    
+    //------------------ ADD & FLAG FUNCTION    
+    private ActionListener addEmployeeAdAdminAction = (event) -> {
+        // will use joption pane to update the flag 
+    };
+
 
     // End of variables declaration//GEN-END:variables
                 

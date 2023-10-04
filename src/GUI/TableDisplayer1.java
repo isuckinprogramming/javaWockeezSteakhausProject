@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 
 public class TableDisplayer1 extends JFrame {
 	
-	
+
 	public TableDisplayer1(DefaultTableModel model) {
 		
 		setUpComponents();
@@ -31,8 +31,8 @@ public class TableDisplayer1 extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+		EventQueue.invokeLater(
+			() -> {
 				try {
 					TableDisplayer1 frame = new TableDisplayer1();
 					frame.setVisible(true);
@@ -40,10 +40,14 @@ public class TableDisplayer1 extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
+		);
 	}
 
 	/**
+	 * 
+	 * NOTE: THIS CONSTRUCTOR IS NOT IN USE FOR PRODUCTION.
+	 * THIS CONSTRUCTOR IS FOR THE ECLIPSE WINDOW BUILDER
+	 * 
 	 * Create the frame.
 	 * Do not modify this constructor. This constructor is needed
 	 * for the Eclipse Window Builder. 
@@ -52,19 +56,19 @@ public class TableDisplayer1 extends JFrame {
 	 * conflict with the Eclipse window builder. 
 	 */
 	public TableDisplayer1() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 796, 645);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{1054, 0};
-		gbl_contentPane.rowHeights = new int[]{576, 1, 1, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 1054, 0 };
+		gbl_contentPane.rowHeights = new int[] { 576, 1, 1, 0 };
+		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 3;
@@ -72,13 +76,17 @@ public class TableDisplayer1 extends JFrame {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		contentPane.add(scrollPane, gbc_scrollPane);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
 	}
 
+	
+	/***
+	 *  THIS FUNCTION WORKS LIKE THE CONSTRUCTOR FOR THIS CLASS
+	 * */
 	private void setUpComponents() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 796, 645);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

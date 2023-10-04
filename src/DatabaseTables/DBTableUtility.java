@@ -1,5 +1,6 @@
 package DatabaseTables;
 
+import java.awt.EventQueue;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -41,13 +42,28 @@ public class DBTableUtility {
     displayResultSetDataToJFrame(resultSet, tablename);
   }
 
-
+  private static TableDisplayer1 dataDisplayerTest;
   public static void displayResultSetDataToJFrame( ResultSet rs, String jframeTitle ) {
     
     try {
-      TableDisplayer1 table = new TableDisplayer1(buildTableModel(rs));
-      table.setTitle(jframeTitle);
-    } catch (SQLException e) {
+      // TableDisplayer1 table = new TableDisplayer1(buildTableModel(rs));
+      // dataDisplayerTest = new TableDisplayer1(buildTableModel(rs));
+      // dataDisplayerTest.setTitle(jframeTitle);
+      EventQueue.invokeLater(
+          () -> {
+            TableDisplayer1 frame;
+            try {
+              frame = new TableDisplayer1(buildTableModel(rs));
+            frame.setTitle(jframeTitle);
+            frame.setVisible(true);
+            } catch (SQLException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
+
+          } );
+      // table.setTitle(jframeTitle);
+    } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }  

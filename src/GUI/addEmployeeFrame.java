@@ -54,7 +54,7 @@ public class addEmployeeFrame extends  JFrame {
 
         initializeGUIComponents();
 
-        setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize( new Dimension(700, 400));
 
         setUpAllGUIComponents();
