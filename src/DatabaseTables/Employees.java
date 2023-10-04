@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import DatabaseObjectTemplates.DBEntity;
 import SystemObjects.DatabaseInitialize;
 
@@ -220,7 +222,19 @@ public class Employees implements DBEntity {
                 // getIsAdminAuthorityUpdateQuery(generatedId, false)
         };
 
+
+
         boolean result = tableQueryExecutor(allQueries);
+
+        if (result) {
+            JOptionPane.showMessageDialog(
+            null,
+            "Employee is successfully registered! Your id is " + generatedId,
+            "SUCCESSFUL EMPLOYEE REGISTRATION",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        }
+
         return result;
     }
 

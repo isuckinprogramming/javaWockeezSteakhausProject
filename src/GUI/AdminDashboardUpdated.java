@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle;
 
 import DatabaseTables.Customer;
@@ -21,6 +22,7 @@ import DatabaseTables.DBTableUtility;
 import DatabaseTables.Employees;
 import DatabaseTables.Reservations;
 import DatabaseTables.Rooms;
+import SystemObjects.DatabaseInitialize;
 import SystemObjects.ProgramUser;
 
 public class AdminDashboardUpdated extends JFrame {
@@ -388,16 +390,74 @@ public class AdminDashboardUpdated extends JFrame {
     // ----- FLAGGING FUNCTIONS ----------------------------
     private ActionListener turnDownRoomAction = (event)-> {
         // TODO will use a joptionpane to receive roomid to turn into an unavailable room
+
+                String rawInput = JOptionPane.showInputDialog(null, 
+        "Please enter id of room to turn into unavailable: ", 
+        "Turning Room Availability Down", 
+                JOptionPane.QUESTION_MESSAGE);
+        
+        int employeId = convertStringToID(rawInput);
+
+        String mysqlQuery = 
+        "UPDATE " + Rooms.tableName +
+        " set " + Rooms.availableColumn + " = false WHERE " +
+        Rooms.roomIdColumn + " = " + employeId + " AND " +
+        Rooms.availableColumn + " = true ";
+
+        
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase( mysqlQuery );
     };
 
     
     private ActionListener cancelReservationAction = (event) -> {
         // TODO will use a  joptionpane to receive reservationid to cancel
+
+
+        String rawInput = JOptionPane.showInputDialog(null, 
+        "Please enter id of Reservation to cancel : ", 
+        "Reservation Cancellation", 
+                JOptionPane.QUESTION_MESSAGE);
+        
+        int reserveId = convertStringToID(rawInput);
+
+        String deleteFromCustomerService = 
+        "DELETE FROM " + CustomerService.tableName +
+        " WHERE " + CustomerService.reservationIdColumn + " =  " + reserveId;
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase( deleteFromCustomerService );
+
+
+        String deleteFromCustomer = 
+        "DELETE FROM " + Customer.tableName +
+        " WHERE " + Customer.ReservationIDColumn + " =  " + reserveId;
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase( deleteFromCustomer);
+        
+        
+        String deletFromReservation = 
+        "DELETE FROM " + Reservations.tableName +
+        " WHERE " + Reservations.reservationIdColumn + " =  " + reserveId;
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase(deletFromReservation);
+
     };
     
     
     private ActionListener fireEmployeeAction = (event)-> {
         // will use a joptionpane to receive employeeid to fire employee
+                
+        String rawInput = JOptionPane.showInputDialog(null, 
+        "Please enter id of employee to fire from workforce: ", 
+        "Firing Employee", 
+                JOptionPane.QUESTION_MESSAGE);
+        
+        int employeId = convertStringToID(rawInput);
+
+        String mysqlQuery = 
+        "UPDATE " + Employees.tableName +
+        " set " + Employees.isEmployedCurrentlyColumn + " = false WHERE " +
+        Employees.employeeidColumn + " = " + employeId + " AND " +
+        Employees.isEmployedCurrentlyColumn + " = true ";
+
+        
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase( mysqlQuery );
     };
     
     // ------------------- ADD FUNCTIONS -------------------
@@ -409,21 +469,64 @@ public class AdminDashboardUpdated extends JFrame {
 
     private ActionListener addRoomAction = (event)-> {
         // will use a joption pane to present notification message
+
+        String mysqlQuery = 
+        "INSERT INTO " + Rooms.tableName + " ( " + Rooms.availableColumn + ")" + 
+        " VALUES( true ) ";
+
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase(mysqlQuery);
+        
+        JOptionPane.showMessageDialog(
+                null,
+                "Room is successfully created.",
+                
+            "Room Creation Success!", 
+                JOptionPane.INFORMATION_MESSAGE);
     };
     
     private ActionListener addEmployeeAction = (event) -> {
-        addEmployeeFrame addEmployee = new addEmployeeFrame();
-
-        // addEmployeeFrame addEmployee = new addEmployeeFrame( programUserReference );
+        
+        addEmployeeFrame addEmployee = new addEmployeeFrame( employeeTableReference );
         addEmployee.setVisible(true);
     };
     
     //------------------ ADD & FLAG FUNCTION    
     private ActionListener addEmployeeAdAdminAction = (event) -> {
-        // will use joption pane to update the flag 
+        
+        String rawInput = JOptionPane.showInputDialog(null, 
+        "Please enter id of employee to set as admin: ", 
+        "Register employee as ADMIN", 
+                JOptionPane.QUESTION_MESSAGE);
+        
+        int employeId = convertStringToID(rawInput);
+
+        String mysqlQuery = 
+        "UPDATE " + Employees.tableName +
+        " set " + Employees.isAdminAuthorityLevel + " = true WHERE " +
+        Employees.employeeidColumn + " = " + employeId + " AND " +
+        Employees.isEmployedCurrentlyColumn + " = true ";
+
+        
+        DatabaseInitialize.executeMySQLQueryInProjectDatabase( mysqlQuery );
+
     };
 
-
+    private int convertStringToID(String raw) {
+        
+        try {
+            return Integer.parseInt(raw);
+        } catch (NumberFormatException ex) {
+        
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Please enter numbers only. No letters.\nInvalid entry, please try again.",
+                    
+                "WRONG ID INPUT", 
+                    JOptionPane.WARNING_MESSAGE);
+            return -1;
+        }
+        
+    }
     // End of variables declaration//GEN-END:variables
                 
 }

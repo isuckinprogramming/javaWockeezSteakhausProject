@@ -22,6 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import DatabaseTables.EmployeePosition;
+import DatabaseTables.Employees;
+import SystemObjects.ProgramUser;
+
 /**
  *
  * @author juderafael
@@ -31,13 +35,18 @@ public class addEmployeeFrame extends  JFrame {
     /**
      * Creates new form addEmployeeFrame
      */
-
+    // private ProgramUser refToCurrentProgramUser = new ProgramUser();
 
     public static void main(String[] args) {
-        addEmployeeFrame test = new addEmployeeFrame();
-        test.setVisible(true);
+        // addEmployeeFrame test = new addEmployeeFrame();
+        // test.setVisible(true);
     }
-    public addEmployeeFrame() {
+
+    private Employees employeeTable;
+    public addEmployeeFrame(Employees employeeTable) {
+
+        employeeTable = employeeTable;
+        
         initComponents();
     }
 
@@ -71,7 +80,7 @@ public class addEmployeeFrame extends  JFrame {
         FirstNameTextField = new  JTextField();
         LastNameLabel = new  JLabel();
         LastNameTextField = new  JTextField();
-        ComboBox = new  JComboBox<>();
+        jobPositionComboBox = new  JComboBox<>();
         PositionLabel = new  JLabel();
         FirstNameTextField1 = new  JTextField();
         ContactNumberLabel = new  JLabel();
@@ -103,8 +112,8 @@ public class addEmployeeFrame extends  JFrame {
             "SECURITY STAFF",
             "ROOM KEEPER"
         };
-        ComboBox.setModel(new  DefaultComboBoxModel<>( nameOfAllPositions ) );
-        ComboBox.addActionListener( positionComboBoxAcion );
+        jobPositionComboBox.setModel(new  DefaultComboBoxModel<>( nameOfAllPositions ) );
+        jobPositionComboBox.addActionListener( positionComboBoxAcion );
 
         PositionLabel.setText("Position");
 
@@ -144,7 +153,7 @@ public class addEmployeeFrame extends  JFrame {
                                     .addComponent(FirstNameTextField,  GroupLayout.PREFERRED_SIZE, 160,  GroupLayout.PREFERRED_SIZE)))
                             .addComponent(LastNameLabel)
                             .addComponent(PositionLabel)
-                            .addComponent(ComboBox,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jobPositionComboBox,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
                         .addGap(87, 87, 87)
                         .addGroup(PanelforAllLayout.createParallelGroup( GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelforAllLayout.createSequentialGroup()
@@ -186,7 +195,7 @@ public class addEmployeeFrame extends  JFrame {
                 .addGap(53, 53, 53)
                 .addComponent(PositionLabel)
                 .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComboBox,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
+                .addComponent(jobPositionComboBox,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(AddEmployeeButton,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
@@ -217,7 +226,7 @@ public class addEmployeeFrame extends  JFrame {
     private  JButton AddEmployeeButton;
     
     // jcombobox<String>
-    private  JComboBox<String> ComboBox;
+    private  JComboBox<String> jobPositionComboBox;
     
     // jtextfields
     private  JTextField FirstNameTextField;
@@ -239,9 +248,49 @@ public class addEmployeeFrame extends  JFrame {
     private  JPanel PanelforAll;
 
 
-    private ActionListener addEmployeeAction = (event)-> {
+    private ActionListener addEmployeeAction = (event) -> {
+        
 
+        // boolean isRegistrationSuccessful = refToCurrentProgramUser.registerAnEmployeeGUIVerion(
+        //     refToCurrentProgramUser.EmployeeTableReference,
+        //     FirstNameTextField.getText(),
+        //     LastNameTextField.getText(),
+        //     PasswordEmployee.getPassword().toString(),
+        //     // FirstNameTextField1.getText(),
+        //     jobPositionComboBox.getSelectedIndex() + 1
+                
+        // );
+        Employees newEmployeeTable = new Employees();
+        newEmployeeTable.registerEmployee(
+            FirstNameTextField.getText(),
+            LastNameTextField.getText(),
+            String.valueOf(PasswordEmployee.getPassword()),
+            Integer.parseInt(FirstNameTextField1.getText()),
+            convertNumberIntoJobPosition( jobPositionComboBox.getSelectedIndex() + 1)
+        );
+
+        // System.out.println("Employee registration : " + isRegistrationSuccessful);
     };
+
+    public EmployeePosition convertNumberIntoJobPosition(int number) {
+    switch (number) {
+      case 1:
+        return EmployeePosition.UNVERIFIED;
+      case 2:
+        return EmployeePosition.MANAGER;
+      case 3:
+        return EmployeePosition.ACCOUNTANT;
+      case 4:
+        return EmployeePosition.CLERK;
+      case 5:
+        return EmployeePosition.SECURITY_STAFF;
+      case 6:
+        return EmployeePosition.ROOM_KEEPER;
+      default:
+        return EmployeePosition.UNVERIFIED;
+    }
+
+  }
 
     private ActionListener positionComboBoxAcion = ( event ) -> {
         /* TODO ComboBOX to add positions <Combobox> item 1, item 2, item 3, item 4,
